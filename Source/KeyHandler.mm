@@ -484,20 +484,27 @@ static NSString *const kGraphVizOutputfile = @"/tmp/McBopomofo-visualization.dot
 
     // MARK: Punctuation list
     if ((char) charCode == '`') {
-        if (_languageModel->hasUnigramsForKey(string("_punctuation_list"))) {
-            if (_bpmfReadingBuffer->isEmpty()) {
-                _builder->insertReadingAtCursor(string("_punctuation_list"));
-                NSString *poppedText = [self _popOverflowComposingTextAndWalk];
-                InputStateInputting *inputting = (InputStateInputting *)[self buildInputtingState];
-                inputting.poppedText = poppedText;
-                stateCallback(inputting);
-                InputStateChoosingCandidate *choosingCandidate = [self _buildCandidateState:inputting useVerticalMode:input.useVerticalMode];
-                stateCallback(choosingCandidate);
-            } else { // If there is still unfinished bpmf reading, ignore the punctuation
-                errorCallback();
-            }
-            return YES;
-        }
+        InputStateEmpty *empty = [[InputStateEmpty alloc] init];
+        stateCallback(empty);
+
+        SymbolNode *root = [SymbolNode root];
+        InputStateSymbolTable *symbolState = [[InputStateSymbolTable alloc] initWithNode:root useVerticalMode:input.useVerticalMode];
+        stateCallback(symbolState);
+        return YES;
+//        if (_languageModel->hasUnigramsForKey(string("_punctuation_list"))) {
+//            if (_bpmfReadingBuffer->isEmpty()) {
+//                _builder->insertReadingAtCursor(string("_punctuation_list"));
+//                NSString *poppedText = [self _popOverflowComposingTextAndWalk];
+//                InputStateInputting *inputting = (InputStateInputting *)[self buildInputtingState];
+//                inputting.poppedText = poppedText;
+//                stateCallback(inputting);
+//                InputStateChoosingCandidate *choosingCandidate = [self _buildCandidateState:inputting useVerticalMode:input.useVerticalMode];
+//                stateCallback(choosingCandidate);
+//            } else { // If there is still unfinished bpmf reading, ignore the punctuation
+//                errorCallback();
+//            }
+//            return YES;
+//        }
     }
 
     // MARK: Punctuation
