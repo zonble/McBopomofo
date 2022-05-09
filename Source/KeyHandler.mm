@@ -1269,7 +1269,9 @@ static NSString *const kGraphVizOutputfile = @"/tmp/McBopomofo-visualization.dot
     Formosa::Gramambular::Walker walker(&_builder->grid());
 
     // the reverse walk traces the trellis from the end
-    _walkedNodes = walker.reverseWalk(_builder->grid().width());
+
+    // _walkedNodes = walker.reverseWalk(_builder->grid().width());
+    _walkedNodes = walker.optimizedReverseWalk(_builder->grid().width());
 
     // then we reverse the nodes so that we get the forward-walked nodes
     reverse(_walkedNodes.begin(), _walkedNodes.end());

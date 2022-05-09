@@ -38,6 +38,8 @@
 namespace Formosa {
 namespace Gramambular {
 
+const double kSelectedCandidateScore = 99;
+
 class Node {
  public:
   Node();
@@ -167,12 +169,12 @@ inline void Node::selectCandidateAtIndex(size_t index, bool fix) {
   }
 
   m_candidateFixed = fix;
-  m_score = 99;
+  m_score = kSelectedCandidateScore;
 }
 
 inline void Node::resetCandidate() {
   m_selectedUnigramIndex = 0;
-  m_candidateFixed = 0;
+  m_candidateFixed = false;
   if (m_unigrams.size()) {
     m_score = m_unigrams[0].score;
   }
