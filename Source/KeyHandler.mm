@@ -1181,6 +1181,22 @@ static NSString *const kGraphVizOutputfile = @"/tmp/McBopomofo-visualization.dot
     return YES;
 }
 
+- (BOOL)setCursorIndex:(NSInteger)index
+                 state:(InputState *)state
+         stateCallback:(void (^)(InputState *))stateCallback
+{
+    if ([state isKindOfClass:[InputStateInputting class]]) {
+        if (!_bpmfReadingBuffer->isEmpty()) {
+            return YES;
+        }
+        _builder->setCursorIndex(index);
+        InputStateInputting *inputting = (InputStateInputting *)[self buildInputtingState];
+        stateCallback(inputting);
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - States Building
 
 - (InputStateInputting *)buildInputtingState

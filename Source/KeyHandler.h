@@ -51,8 +51,13 @@ extern InputMode InputModePlainBopomofo;
 - (void)fixNodeWithValue:(NSString *)value NS_SWIFT_NAME(fixNode(value:));
 - (void)clear;
 
+- (BOOL)setCursorIndex:(NSInteger)index
+                 state:(InputState *)state
+         stateCallback:(void (^)(InputState *))stateCallback;
+
 - (InputState *)buildInputtingState;
 - (nullable InputState *)buildAssociatePhraseStateWithKey:(NSString *)key useVerticalMode:(BOOL)useVerticalMode;
+
 
 @property (strong, nonatomic) InputMode inputMode;
 @property (weak, nonatomic) id <KeyHandlerDelegate> delegate;

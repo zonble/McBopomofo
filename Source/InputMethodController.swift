@@ -145,10 +145,30 @@ class McBopomofoInputMethodController: IMKInputController {
         }
     }
 
+    // MARK: - IMKMouseHandling protocol methods
+
+    override func mouseDown(onCharacterIndex index: Int, coordinate point: NSPoint, withModifier flags: Int, continueTracking keepTracking: UnsafeMutablePointer<ObjCBool>!, client sender: Any!) -> Bool {
+        keyHandler.setCursorIndex(index, state: state) { newState in
+            self.handle(state: newState, client: sender)
+        }
+    }
+
     // MARK: - IMKServerInput protocol methods
 
+    override func commitComposition(_ sender: Any!) {
+        keyHandler.clear()
+        self.handle(state: .Empty(), client: sender)
+    }
+
+    override func composedString(_ sender: Any!) -> Any! {
+        if let state = state as? InputState.NotEmpty {
+            return state.composingBuffer
+        }
+        return ""
+    }
+
     override func recognizedEvents(_ sender: Any!) -> Int {
-        let events: NSEvent.EventTypeMask = [.keyDown, .flagsChanged]
+        let events: NSEvent.EventTypeMask = [.keyDown, .flagsChanged, .leftMouseDown]
         return Int(events.rawValue)
     }
 
