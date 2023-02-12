@@ -136,7 +136,14 @@ fileprivate let kWindowTitleHeight: CGFloat = 78
                     return newImage
                 }
 
-                menuItem.image = resize(image)
+                let resized = resize(image)
+                if #available(macOS 13, *) {
+                    // On macOS 13, the icons are no longer flags but text renderred
+                    // in a highlighted background. Making these icons as templates
+                    // could look better in the dark mode.
+                    resized.isTemplate = true
+                }
+                menuItem.image = resized
             }
 
             if sourceID == "com.apple.keylayout.US" {
