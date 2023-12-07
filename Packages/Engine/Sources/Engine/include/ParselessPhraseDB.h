@@ -30,7 +30,7 @@
 
 namespace McBopomofo {
 
-constexpr std::string_view SORTED_PRAGMA_HEADER
+const std::string_view SORTED_PRAGMA_HEADER
     = "# format org.openvanilla.mcbopomofo.sorted\n";
 
 // Defines phrase database that consists of (key, value, score) rows that are

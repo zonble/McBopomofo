@@ -45,6 +45,7 @@
 		D461B792279DAC010070E734 /* InputState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D461B791279DAC010070E734 /* InputState.swift */; };
 		D476CB492827DB6300F48552 /* add-phrase-hook.sh in Resources */ = {isa = PBXBuildFile; fileRef = D476CB482827DB6300F48552 /* add-phrase-hook.sh */; };
 		D47B92C027972AD100458394 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47B92BF27972AC800458394 /* main.swift */; };
+		D47D3A242B21B74A0034EEE5 /* LanguageModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D3A232B21B74A0034EEE5 /* LanguageModelManager.swift */; };
 		D47D73A427A5D43900255A50 /* KeyHandlerBopomofoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47D73A327A5D43900255A50 /* KeyHandlerBopomofoTests.swift */; };
 		D47D73A827A6C84F00255A50 /* associated-phrases.txt in Resources */ = {isa = PBXBuildFile; fileRef = D47D73A727A6C84F00255A50 /* associated-phrases.txt */; };
 		D47D73A927A6C84F00255A50 /* associated-phrases.txt in Resources */ = {isa = PBXBuildFile; fileRef = D47D73A727A6C84F00255A50 /* associated-phrases.txt */; };
@@ -150,6 +151,7 @@
 		D46CD4EA2B21A95A00AEBCA6 /* Engine */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Engine; path = Packages/Engine; sourceTree = "<group>"; };
 		D476CB482827DB6300F48552 /* add-phrase-hook.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "add-phrase-hook.sh"; sourceTree = "<group>"; };
 		D47B92BF27972AC800458394 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		D47D3A232B21B74A0034EEE5 /* LanguageModelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageModelManager.swift; sourceTree = "<group>"; };
 		D47D73A327A5D43900255A50 /* KeyHandlerBopomofoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyHandlerBopomofoTests.swift; sourceTree = "<group>"; };
 		D47D73A727A6C84F00255A50 /* associated-phrases.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "associated-phrases.txt"; sourceTree = "<group>"; };
 		D47D73C027A71FFA00255A50 /* FSEventStreamHelper */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FSEventStreamHelper; path = Packages/FSEventStreamHelper; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				6ACA41E715FC1D9000935EF6 /* Installer */,
 				6A0D4F4715FC0EB900ABF4B3 /* Resources */,
 				D4A13D5927A59D5C003BE359 /* InputMethodController.swift */,
+				D47D3A232B21B74A0034EEE5 /* LanguageModelManager.swift */,
 				D41355D6278D7409005E5CBD /* LanguageModelManager.h */,
 				D495583A27A5C6C4006ADE1C /* LanguageModelManager+Privates.h */,
 				D41355D7278D7409005E5CBD /* LanguageModelManager.mm */,
@@ -588,6 +591,7 @@
 				D4A13D5A27A59F0B003BE359 /* InputMethodController.swift in Sources */,
 				D44FB74527915565003C80A6 /* Preferences.swift in Sources */,
 				D4E569DC27A34D0E00AC2CEF /* KeyHandler.mm in Sources */,
+				D47D3A242B21B74A0034EEE5 /* LanguageModelManager.swift in Sources */,
 				D47F7DD0278C0897002F9DD7 /* NonModalAlertWindowController.swift in Sources */,
 				D456576E279E4F7B00DF6BC9 /* KeyHandlerInput.swift in Sources */,
 				D47F7DCE278BFB57002F9DD7 /* PreferencesWindowController.swift in Sources */,
@@ -914,6 +918,7 @@
 					"$(OTHER_CFLAGS)",
 					"-fcxx-modules",
 				);
+				OTHER_SWIFT_FLAGS = "-cxx-interoperability-mode=default";
 				PRODUCT_BUNDLE_IDENTIFIER = org.openvanilla.inputmethod.McBopomofo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -972,6 +977,7 @@
 					"$(OTHER_CFLAGS)",
 					"-fcxx-modules",
 				);
+				OTHER_SWIFT_FLAGS = "-cxx-interoperability-mode=default";
 				PRODUCT_BUNDLE_IDENTIFIER = org.openvanilla.inputmethod.McBopomofo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;

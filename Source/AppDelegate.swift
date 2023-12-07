@@ -78,7 +78,7 @@ struct VersionUpdateApi {
             }
 
             do {
-                guard let plist = try PropertyListSerialization.propertyList(from: data ?? Data(), options: [], format: nil) as? [AnyHashable: Any],
+                guard let plist = try PropertyListSerialization.propertyList(from: data ?? Data(), options: 0, format: nil) as? [AnyHashable: Any],
                       let remoteVersion = plist[kCFBundleVersionKey] as? String,
                       let infoDict = Bundle.main.infoDictionary
                         else {

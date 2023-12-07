@@ -1,3 +1,4 @@
+#include "AssociatedPhrases.h"
 #include "KeyValueBlobReader.h"
 #include "Mandarin.h"
 #include "McBopomofoLM.h"
