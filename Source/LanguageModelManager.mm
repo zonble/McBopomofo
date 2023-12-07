@@ -25,8 +25,10 @@
 #import "LanguageModelManager+Privates.h"
 #import "McBopomofo-Swift.h"
 
+@import Engine;
 @import VXHanConvert;
 @import OpenCCBridge;
+@import Engine;
 
 static const int kUserOverrideModelCapacity = 500;
 static const double kObservedOverrideHalflife = 5400.0; // 1.5 hr.
