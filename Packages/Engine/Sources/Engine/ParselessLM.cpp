@@ -31,6 +31,9 @@
 
 #include <memory>
 
+// workaround..
+static std::unique_ptr<McBopomofo::ParselessPhraseDB> db_;
+
 McBopomofo::ParselessLM::~ParselessLM() { close(); }
 
 bool McBopomofo::ParselessLM::isLoaded()

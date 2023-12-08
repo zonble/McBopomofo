@@ -56,7 +56,9 @@ private:
     int fd_ = -1;
     void* data_ = nullptr;
     size_t length_ = 0;
-    std::unique_ptr<ParselessPhraseDB> db_;
+
+    // I do not know why it cannot be expose to Swift
+    // std::unique_ptr<ParselessPhraseDB> db_;
 };
 
 }; // namespace McBopomofo
