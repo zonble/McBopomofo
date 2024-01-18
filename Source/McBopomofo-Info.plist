@@ -145,6 +145,21 @@
 			<key>NSRequiredContext</key>
 			<dict/>
 		</dict>
+		<dict>
+			<key>NSMessage</key>
+			<string>addBopomofoAnnotations</string>
+			<key>NSMenuItem</key>
+			<dict>
+				<key>default</key>
+				<string>Add Bopomofo Annotations</string>
+			</dict>
+			<key>NSSendTypes</key>
+			<array>
+				<string>NSRTFPboardType</string>
+			</array>
+			<key>NSRequiredContext</key>
+			<dict/>
+		</dict>
 	</array>
 </dict>
 </plist>

@@ -78,4 +78,47 @@ class ServiceProvider: NSObject  {
         LanguageModelManager.writeUserPhrase("\(firstWord) \(reading)")
         (NSApp.delegate as? AppDelegate)?.openUserPhrases(self)
     }
+
+    @objc func addBopomofoAnnotations(_ pasteboard: NSPasteboard, userData: String?, error: NSErrorPointer) {
+
+        func create(_ text: String, annotation: String) -> NSAttributedString {
+            var null: Unmanaged<CFString>?
+            var furigana: UnsafeMutablePointer<Unmanaged<CFString>?> = UnsafeMutablePointer<Unmanaged<CFString>?>.allocate(capacity: 4)
+            furigana[0] = Unmanaged.passUnretained(annotation as CFString)
+            furigana[1] = null
+            furigana[2] = null
+            furigana[3] = null
+            let ruby = CTRubyAnnotationCreate(.auto, .auto, 0.5, furigana)
+            let attrString = NSAttributedString(string: text, attributes: [
+                .rubyAnnotation: ruby
+            ])
+            return attrString
+        }
+
+        guard let data = pasteboard.data(forType: .rtf),
+              let attrString = NSAttributedString(docFormat: data, documentAttributes: nil) else {
+            return
+        }
+        let string = attrString.string
+        let output = NSMutableAttributedString()
+
+        for c in string {
+            let s = String(c)
+            if let reading = LanguageModelManager.reading(for: s) {
+                let attrString = create(s, annotation: reading)
+                output.append(attrString)
+            } else {
+                output.append(NSAttributedString(string: s))
+            }
+        }
+        pasteboard.declareTypes([.rtf], owner: nil)
+        if let outputData = try? output.data(from: NSMakeRange(0, attrString.length)) {
+            pasteboard.setData(outputData, forType: .rtf)
+        }
+    }
+
+}
+
+extension NSAttributedString.Key {
+    static let rubyAnnotation: NSAttributedString.Key = kCTRubyAnnotationAttributeName as NSAttributedString.Key
 }
