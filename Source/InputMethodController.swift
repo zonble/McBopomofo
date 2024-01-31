@@ -429,10 +429,13 @@ extension McBopomofoInputMethodController {
             gCurrentCandidateController?.visible = false
             return
         }
-
+        var cursor = Int(state.cursorIndex)
+        if cursor == state.attributedString.length && Preferences.selectPhraseAfterCursorAsCandidate {
+            cursor -= 1
+        }
         // the selection range is where the cursor is, with the length being 0 and replacement range NSNotFound,
         // i.e. the client app needs to take care of where to put this composing buffer
-        client.setMarkedText(state.attributedString, selectionRange: NSMakeRange(Int(state.cursorIndex), 0), replacementRange: NSMakeRange(NSNotFound, NSNotFound))
+        client.setMarkedText(state.attributedString, selectionRange: NSMakeRange(cursor, 0), replacementRange: NSMakeRange(NSNotFound, NSNotFound))
         show(candidateWindowWith: state, client: client)
     }
 
@@ -448,9 +451,17 @@ extension McBopomofoInputMethodController {
         // i.e. the client app needs to take care of where to put this composing buffer
         switch previousState {
         case let previousState as InputState.ChoosingCandidate:
-            client.setMarkedText(previousState.attributedString, selectionRange: NSMakeRange(Int(previousState.cursorIndex), 0), replacementRange: NSMakeRange(NSNotFound, NSNotFound))
+            var cursor = Int(previousState.cursorIndex)
+            if cursor == previousState.attributedString.length && Preferences.selectPhraseAfterCursorAsCandidate {
+                cursor -= 1
+            }
+            client.setMarkedText(previousState.attributedString, selectionRange: NSMakeRange(Int(cursor), 0), replacementRange: NSMakeRange(NSNotFound, NSNotFound))
         case let previousState as InputState.Inputting:
-            client.setMarkedText(previousState.attributedString, selectionRange: NSMakeRange(Int(previousState.cursorIndex), 0), replacementRange: NSMakeRange(NSNotFound, NSNotFound))
+            var cursor = Int(previousState.cursorIndex)
+            if cursor == previousState.attributedString.length && Preferences.selectPhraseAfterCursorAsCandidate {
+                cursor -= 1
+            }
+            client.setMarkedText(previousState.attributedString, selectionRange: NSMakeRange(Int(cursor), 0), replacementRange: NSMakeRange(NSNotFound, NSNotFound))
         default:
             break
         }
