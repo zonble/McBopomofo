@@ -316,6 +316,12 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
         return [self _handleBig5State:state input:input stateCallback:stateCallback errorCallback:errorCallback];
     }
 
+
+    // MARK: Handle Big5 Input
+    if ([state isKindOfClass:[InputStateBMI class]]) {
+        return [self _handleBMIState:(InputStateBMI *)state input:input stateCallback:stateCallback errorCallback:errorCallback];
+    }
+
     // MARK: Handle Chinese Number Input
     if ([state isKindOfClass:[InputStateChineseNumber class]]) {
         return [self _handleNumberState:state input:input stateCallback:stateCallback errorCallback:errorCallback];
@@ -1655,6 +1661,117 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
             InputStateBig5 *newState = [[InputStateBig5 alloc] initWithCode:appended];
             stateCallback(newState);
         }
+        return YES;
+    }
+
+    errorCallback();
+    return YES;
+}
+
+- (BOOL)_handleBMIState:(InputStateBMI *)state
+                   input:(KeyHandlerInput *)input
+           stateCallback:(void (^)(InputState *))stateCallback
+           errorCallback:(void (^)(void))errorCallback;
+{
+    UniChar charCode = input.charCode;
+    BOOL cancelKey = (charCode == 27);
+    if (cancelKey) {
+        InputStateEmpty *empty = [[InputStateEmpty alloc] init];
+        stateCallback(empty);
+        return YES;
+    }
+
+    if (charCode == 13) {
+        if (state.state == BMIStateWeight) {
+            NSString *weight = state.weight;
+            if (weight.length == 0) {
+                errorCallback();
+                return YES;
+            }
+            InputStateBMI *newState = [[InputStateBMI alloc] init];
+            newState.height = state.height;
+            newState.weight = state.weight;
+            newState.state = BMIStateHeight;
+            stateCallback(newState);
+        } else if (state.state == BMIStateHeight) {
+            NSString *height = state.height;
+            if (height.length == 0) {
+                errorCallback();
+                return YES;
+            }
+            NSString *result = [state getResult];
+            InputStateCommitting *newState = [[InputStateCommitting alloc] initWithPoppedText:result];
+            stateCallback(newState);
+        }
+        return YES;
+    }
+
+    if ((charCode == 8) || input.isDelete) {
+        if (state.state == BMIStateWeight) {
+            NSString *weight = state.weight;
+            if (weight.length > 0) {
+                weight = [weight substringToIndex:weight.length - 1];
+            }
+            else {
+                errorCallback();
+                return YES;
+            }
+            InputStateBMI *newState = [[InputStateBMI alloc] init];
+            newState.height = state.height;
+            newState.weight = weight;
+            newState.state = BMIStateWeight;
+            stateCallback(newState);
+        }
+        else if (state.state == BMIStateHeight) {
+            NSString *height = state.height;
+            if (height.length > 0) {
+                height = [height substringToIndex:height.length - 1];
+            }
+            else {
+                errorCallback();
+                return YES;
+            }
+            InputStateBMI *newState = [[InputStateBMI alloc] init];
+            newState.height = height;
+            newState.weight = newState.weight;
+            newState.state = BMIStateHeight;
+            stateCallback(newState);
+        }
+        return YES;
+    }
+
+    if (charCode >= '0' && charCode <= '9') {
+        if (state.state == BMIStateWeight) {
+            NSString *weight = state.weight;
+            if (weight.length < 4) {
+                weight = [weight stringByAppendingFormat:@"%C", charCode];
+            }
+            else {
+                errorCallback();
+                return YES;
+            }
+            InputStateBMI *newState = [[InputStateBMI alloc] init];
+            newState.height = state.height;
+            newState.weight = weight;
+            newState.state = BMIStateWeight;
+            stateCallback(newState);
+        }
+        else if (state.state == BMIStateHeight) {
+            NSString *height = state.height;
+            if (height.length < 4) {
+                height = [height stringByAppendingFormat:@"%C", charCode];
+            }
+            else {
+                errorCallback();
+                return YES;
+            }
+            InputStateBMI *newState = [[InputStateBMI alloc] init];
+            newState.height = height;
+            newState.weight = state.weight;
+            newState.state = BMIStateHeight;
+            stateCallback(newState);
+        }
+
         return YES;
     }
 

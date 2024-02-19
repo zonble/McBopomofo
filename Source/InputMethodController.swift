@@ -297,6 +297,8 @@ extension McBopomofoInputMethodController {
             handle(state: newState, previous: previous, client: client)
         case let newState as InputState.ShowingCharInfo:
             handle(state: newState, previous: previous, client: client)
+        case let newState as InputState.BMI:
+            handle(state: newState, previous: previous, client: client)
         default:
             break
         }
@@ -560,6 +562,20 @@ extension McBopomofoInputMethodController {
             client.setMarkedText(candidateDate.attributedString, selectionRange: NSMakeRange(Int(candidateDate.cursorIndex), 0), replacementRange: NSMakeRange(NSNotFound, NSNotFound))
         }
         show(candidateWindowWith: state, client: client)
+    }
+
+    private func handle(state: InputState.BMI, previous: InputState, client: Any?) {
+        gCurrentCandidateController?.visible = false
+        hideTooltip()
+
+        guard let client = client as? IMKTextInput else {
+            return
+        }
+
+        if let previous = previous as? InputState.NotEmpty {
+            commit(text: previous.composingBuffer, client: client)
+        }
+        client.setMarkedText(state.composingBuffer, selectionRange: NSMakeRange(state.composingBuffer.count, 0), replacementRange: NSMakeRange(NSNotFound, NSNotFound))
     }
 }
 

@@ -121,6 +121,7 @@ class InputState: NSObject {
         var featureList: [(String, ()->InputState)] = [
             (NSLocalizedString("Big5 Code", comment: ""), { .Big5(code:"") }),
             (NSLocalizedString("Date and Time", comment: ""), { .SelectingDateMacro() }),
+            (NSLocalizedString("BMI", comment: ""), { .BMI() }),
             (NSLocalizedString("Lowercase Chinese Numbers", comment: ""), {  .ChineseNumber(style:.lower, number: "") }),
             (NSLocalizedString("Uppercase Chinese Numbers", comment: ""), {  .ChineseNumber(style:.upper, number: "") }),
             (NSLocalizedString("Suzhou Numbers", comment: ""), {  .ChineseNumber(style:.suzhou, number: "") }),
@@ -641,6 +642,61 @@ class InputState: NSObject {
         func candidate(at index: Int) -> String {
             menu[index]
         }
+
+    }
+
+    @objc (InputStateBMI)
+    class BMI: InputState {
+        @objc
+        enum BMIState: Int{
+            case weight
+            case height
+        }
+        @objc var state:BMIState = .weight
+        @objc var weight:String = ""
+        @objc var height:String = ""
+        
+        @objc var composingBuffer: String {
+            switch state {
+            case .weight:
+                "[體重-公斤] \(weight)"
+            case .height:
+                "[身高-公分] \(height)"
+            }
+        }
+
+        @objc func canGetResult() -> Bool {
+            if weight.isEmpty || height.isEmpty {
+                return false
+            }
+            return true
+        }
+
+        @objc func getResult() -> String {
+            guard let intWeight = Int(weight),
+                  let intHeight = Int(height) else {
+                return ""
+            }
+            let height = Double(intHeight) / 100.0
+            let bmi =  Double(Int(Double(intWeight) / pow(height, 2) * 10)) / 10
+            let text = switch bmi {
+            case _ where bmi < 18.5:
+                "過輕"
+            case _ where bmi < 27 && bmi >= 24:
+                "過重"
+            case _ where bmi < 30 && bmi >= 27:
+                "輕度肥胖"
+            case _ where bmi < 35 && bmi >= 30:
+                "中度肥胖"
+            case _ where bmi > 35:
+                "重度肥胖"
+            default:
+                 "正常"
+            }
+            return "\(bmi) " + text
+        }
+
+
 
     }
 }
