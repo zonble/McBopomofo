@@ -52,7 +52,7 @@ class KeyHandlerInput: NSObject {
     private var verticalModeOnlyChooseCandidateKey: KeyCode
     @objc private(set) var emacsKey: McBopomofoEmacsKey
 
-    @objc init(inputText: String?, keyCode: UInt16, charCode: UInt16, flags: NSEvent.ModifierFlags, isVerticalMode: Bool, inputTextIgnoringModifiers: String? = nil) {
+    init(inputText: String?, keyCode: UInt16, charCode: UInt16, flags: NSEvent.ModifierFlags, isVerticalMode: Bool, inputTextIgnoringModifiers: String? = nil) {
         self.inputText = inputText
         self.inputTextIgnoringModifiers = inputTextIgnoringModifiers ?? inputText
         self.keyCode = keyCode
@@ -207,7 +207,7 @@ class KeyHandlerInput: NSObject {
 }
 
 class EmacsKeyHelper: NSObject {
-    @objc static func detect(charCode: UniChar, flags: NSEvent.ModifierFlags) -> McBopomofoEmacsKey {
+    static func detect(charCode: UniChar, flags: NSEvent.ModifierFlags) -> McBopomofoEmacsKey {
         if flags.contains(.control) {
             return McBopomofoEmacsKey(rawValue: charCode) ?? .none
         }
