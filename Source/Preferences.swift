@@ -66,6 +66,7 @@ private let kAddPhraseHookPath = "AddPhraseHookPath"
 
 private let kSelectCandidateWithNumericKeypad = "SelectCandidateWithNumericKeypad"
 private let kBig5InputEnabledKey = "Big5InputEnabled"
+private let kBeepOnErrorEnabledKey = "BeepOnErrorEnabled"
 
 // MARK: Property wrappers
 
@@ -218,6 +219,8 @@ class Preferences: NSObject {
             kControlEnterOutputKey,
             kUseCustomUserPhraseLocation,
             kCustomUserPhraseLocation,
+            kBig5InputEnabledKey,
+            kBeepOnErrorEnabledKey,
         ]
     }
 
@@ -479,4 +482,9 @@ extension Preferences {
 extension Preferences {
     @UserDefault(key: kBig5InputEnabledKey, defaultValue: true)
     @objc static var big5InputEnabled: Bool
+}
+
+extension Preferences {
+    @UserDefault(key: kBeepOnErrorEnabledKey, defaultValue: true)
+    @objc static var beepOnErrorEnabled: Bool
 }
