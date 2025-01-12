@@ -16,6 +16,13 @@
 
 要注意的是 macOS 可能會限制同一次 login session 能 kill 同一個輸入法 process 的次數（安裝程式透過 kill input method process 來讓新版的輸入法生效）。如果安裝若干次後，發現程式修改的結果並沒有出現，或甚至輸入法已無法再選用，只要登出目前帳號再重新登入即可。
 
+## 技術說明
+
+在開始修改小麥注音之前，可以先參閱以下文件
+
+- 跟程式本體有關的修改，請參考小麥注音的 [程式架構](https://github.com/openvanilla/McBopomofo/wiki/%E7%A8%8B%E5%BC%8F%E6%9E%B6%E6%A7%8B)
+- 跟詞庫有關的修改，請參考 [詞庫開發說明](https://github.com/openvanilla/McBopomofo/wiki/%E8%A9%9E%E5%BA%AB%E9%96%8B%E7%99%BC%E8%AA%AA%E6%98%8E)
+
 ## 社群公約
 
 歡迎小麥注音用戶回報問題與指教，也歡迎大家參與小麥注音開發。
