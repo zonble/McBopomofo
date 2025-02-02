@@ -40,7 +40,7 @@ jobs:
         working-directory: Packages/OpenCCBridge
       - name: Test BopomofoBraille
         run: swift test
-        working-directory: Packages/OpenCCBridge
+        working-directory: Packages/BopomofoBraille
       - name: Test NSStringUtils
         run: swift test
         working-directory: Packages/NSStringUtils
