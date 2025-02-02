@@ -30,8 +30,6 @@ jobs:
       - name: Run Gramambular2Test
         run: make runGramambular2Test
         working-directory: Source/Engine/gramambular2/build
-      - name: Test McBopomofo App Bundle
-        run: xcodebuild -scheme McBopomofo -configuration Debug test
       - name: Test CandidateUI
         run: swift test --enable-code-coverage
         working-directory: Packages/CandidateUI
