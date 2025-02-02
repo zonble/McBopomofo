@@ -33,19 +33,19 @@ jobs:
       - name: Test McBopomofo App Bundle
         run: xcodebuild -scheme McBopomofo -configuration Debug test
       - name: Test CandidateUI
-        run: swift test
+        run: swift test --enable-code-coverage
         working-directory: Packages/CandidateUI
       - name: Test OpenCCBridge
-        run: swift test
+        run: swift test --enable-code-coverage
         working-directory: Packages/OpenCCBridge
       - name: Test BopomofoBraille
-        run: swift test
+        run: swift test --enable-code-coverage
         working-directory: Packages/BopomofoBraille
       - name: Test NSStringUtils
-        run: swift test
+        run: swift test --enable-code-coverage
         working-directory: Packages/NSStringUtils
       - name: Test ChineseNumbers
-        run: swift test
+        run: swift test --enable-code-coverage
         working-directory: Packages/ChineseNumbers
       - name: Clean McBopomofo for testing
         run: xcodebuild -scheme McBopomofo -configuration Debug clean
@@ -62,3 +62,9 @@ jobs:
       - name: Test data files
         run: make check
         working-directory: Source/Data
+      - name: "Collect test results"
+        run: bash .github/collect_swift_coverage.sh
+      - name: Create commit comment
+        uses: peter-evans/commit-comment@v3
+        with:
+          body-path: 'comment-body.md' 
