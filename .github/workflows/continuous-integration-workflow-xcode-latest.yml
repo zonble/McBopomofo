@@ -65,4 +65,4 @@ jobs:
       - name: Create commit comment
         uses: peter-evans/commit-comment@v3
         with:
-          body-path: 'comment-body.md' 
+          body-path: 'codecov_comment.md' 
