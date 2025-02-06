@@ -61,8 +61,10 @@ jobs:
         run: make check
         working-directory: Source/Data
       - name: "Collect test results"
+        if: github.event_name == 'push'
         run: bash .github/collect_swift_coverage.sh
       - name: Create commit comment
+        if: github.event_name == 'push'
         uses: peter-evans/commit-comment@v3
         with:
           body-path: 'codecov_comment.md' 
