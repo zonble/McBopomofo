@@ -398,6 +398,7 @@
 薄 ㄅㄠˊ bao2 1l6 big5
 窇 ㄅㄠˊ bao2 1l6 big5
 瓝 ㄅㄠˊ bao2 1l6 big5
+寶 ㄅㄠ˙ bao5 1l7 big5
 背 ㄅㄟ bei 1o big5
 杯 ㄅㄟ bei 1o big5
 悲 ㄅㄟ bei 1o big5
@@ -2602,6 +2603,7 @@
 徾 ㄇㄟˊ mei2 ao6 big5
 攗 ㄇㄟˊ mei2 ao6 big5
 槑 ㄇㄟˊ mei2 ao6 big5
+妹 ㄇㄟ˙ mei5 ao7 big5
 悶 ㄇㄣ men ap big5
 燜 ㄇㄣ men ap big5
 暪 ㄇㄣˇ men3 ap3 big5
@@ -4360,6 +4362,7 @@
 家 ㄍㄨ gu ej big5
 嫴 ㄍㄨ gu ej big5
 橭 ㄍㄨ gu ej big5
+姑 ㄍㄨ˙ gu5 ej7 big5
 工 ㄍㄨㄥ gong ej/ big5
 公 ㄍㄨㄥ gong ej/ big5
 功 ㄍㄨㄥ gong ej/ big5
@@ -5998,6 +6001,7 @@
 神 ㄕㄣˊ shen2 gp6 big5
 甚 ㄕㄣˊ shen2 gp6 big5
 什 ㄕㄣˊ shen2 gp6 big5
+嬸 ㄕㄣ˙ shen5 gp7 big5
 疵 ㄘ ci h big5
 庛 ㄘ ci h big5
 雌 ㄘ ci h big5
@@ -7610,6 +7614,7 @@
 臊 ㄙㄠˋ sao4 nl4 big5
 氉 ㄙㄠˋ sao4 nl4 big5
 瘙 ㄙㄠˋ sao4 nl4 big5
+嫂 ㄙㄠ˙ sao5 nl7 big5
 森 ㄙㄣ sen np big5
 槮 ㄙㄣ sen np big5
 罧 ㄙㄣ sen np big5
@@ -7785,6 +7790,7 @@
 鄱 ㄆㄛˊ po2 qi6 big5
 皤 ㄆㄛˊ po2 qi6 big5
 櫇 ㄆㄛˊ po2 qi6 big5
+婆 ㄆㄛ˙ po5 qi7 big5
 撲 ㄆㄨ pu qj big5
 仆 ㄆㄨ pu qj big5
 鋪 ㄆㄨ pu qj big5
@@ -8582,6 +8588,7 @@
 慦 ㄐㄧㄡˋ jiu4 ru.4 big5
 鯦 ㄐㄧㄡˋ jiu4 ru.4 big5
 麔 ㄐㄧㄡˋ jiu4 ru.4 big5
+舅 ㄐㄧㄡ˙ jiu5 ru.7 big5
 經 ㄐㄧㄥ jing ru/ big5
 精 ㄐㄧㄥ jing ru/ big5
 京 ㄐㄧㄥ jing ru/ big5
@@ -9511,6 +9518,7 @@
 釀 ㄋㄧㄤˋ niang4 su;4 big5
 娘 ㄋㄧㄤˊ niang2 su;6 big5
 孃 ㄋㄧㄤˊ niang2 su;6 big5
+娘 ㄋㄧㄤ˙ niang5 su;7 big5
 鳥 ㄋㄧㄠˇ niao3 sul3 big5
 裊 ㄋㄧㄠˇ niao3 sul3 big5
 嬲 ㄋㄧㄠˇ niao3 sul3 big5
