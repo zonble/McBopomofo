@@ -662,8 +662,7 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
             stateCallback(empty);
             return YES;
         }
-        if (Preferences.shiftEnterEnabled &&
-            _inputMode == InputModeBopomofo && input.isShiftHold &&
+        if (Preferences.shiftEnterEnabled && _inputMode == InputModeBopomofo && input.isShiftHold &&
             [state isKindOfClass:[InputStateInputting class]]) {
             return [self handleAssociatedPhraseWithState:(InputStateInputting *)state useVerticalMode:input.useVerticalMode stateCallback:stateCallback errorCallback:errorCallback useShiftKey:NO];
         }
@@ -1415,8 +1414,7 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
             }
         }
 
-        if (Preferences.shiftEnterEnabled &&
-            _inputMode == InputModeBopomofo && input.isShiftHold) {
+        if (Preferences.shiftEnterEnabled && _inputMode == InputModeBopomofo && input.isShiftHold) {
             if ([state isKindOfClass:[InputStateChoosingCandidate class]]) {
                 InputStateChoosingCandidate *current = (InputStateChoosingCandidate *)state;
                 NSInteger selectedCandidateIndex = gCurrentCandidateController.selectedCandidateIndex;
@@ -2101,11 +2099,42 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
     for (const auto& c : candidates) {
         std::string displayText = c.value;
         if (valueCountMap[displayText] > 1) {
-            displayText += " (";
             std::string reading = c.reading;
-            std::replace(reading.begin(), reading.end(), '-', ' ');
-            displayText += reading;
+            std::vector<std::string> slices;
+
+            // Split the reading by '-'
+            size_t start = 0, end;
+            std::string delimiter = "-";
+            while ((end = reading.find(delimiter, start)) != std::string::npos) {
+                slices.push_back(reading.substr(start, end - start));
+                start = end + 1;
+            }
+            slices.push_back(reading.substr(start));
+
+            std::string processedReading;
+            bool first = true;
+
+            for (const auto& slice : slices) {
+                if (!first) {
+                    processedReading += " ";
+                }
+                first = false;
+
+                if (slice.rfind("_punctuation_", 0) == 0) {
+                    processedReading += slice.substr(slice.length() - 1);
+                } else {
+                    processedReading += slice;
+                }
+            }
+
+            displayText += " (";
+            displayText += processedReading;
             displayText += ")";
+            // displayText += " (";
+            // std::string reading = c.reading;
+            // // std::replace(reading.begin(), reading.end(), '-', ' ');
+            // displayText += reading;
+            // displayText += ")";
         }
 
         NSString *r = @(c.reading.c_str());
