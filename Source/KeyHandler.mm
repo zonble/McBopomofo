@@ -2130,11 +2130,6 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
             displayText += " (";
             displayText += processedReading;
             displayText += ")";
-            // displayText += " (";
-            // std::string reading = c.reading;
-            // // std::replace(reading.begin(), reading.end(), '-', ' ');
-            // displayText += reading;
-            // displayText += ")";
         }
 
         NSString *r = @(c.reading.c_str());

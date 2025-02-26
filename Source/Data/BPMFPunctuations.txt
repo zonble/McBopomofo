@@ -740,6 +740,10 @@ _ _half_punctuation_HanyuPinyin__ 0.0
 8️⃣ _number_8 0.0
 9️⃣ _number_9 0.0
 🔟 _number_10 0.0
+〈 _ctrl_punctuation_,-_ctrl_punctuation_, 0.0
+〉 _ctrl_punctuation_.-_ctrl_punctuation_. 0.0
+《 _ctrl_punctuation_,-_ctrl_punctuation_,-_ctrl_punctuation_, 0.0
+》 _ctrl_punctuation_.-_ctrl_punctuation_.-_ctrl_punctuation_. 0.0
 〈 _punctuation_Standard_<-_punctuation_Standard_< 0.0
 〉 _punctuation_Standard_>-_punctuation_Standard_> 0.0
 《 _punctuation_Standard_<-_punctuation_Standard_<-_punctuation_Standard_< 0.0
