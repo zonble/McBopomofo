@@ -3339,6 +3339,7 @@
 嬛 ㄏㄨㄢˊ huan2 cj06 big5
 狟 ㄏㄨㄢˊ huan2 cj06 big5
 雈 ㄏㄨㄢˊ huan2 cj06 big5
+亘 ㄏㄨㄢˊ huan2 cj06 big5e
 虎 ㄏㄨˇ hu3 cj3 big5
 琥 ㄏㄨˇ hu3 cj3 big5
 滸 ㄏㄨˇ hu3 cj3 big5
@@ -4256,6 +4257,7 @@
 更 ㄍㄥˋ geng4 e/4 big5
 亙 ㄍㄥˋ geng4 e/4 big5
 堩 ㄍㄥˋ geng4 e/4 big5
+亘 ㄍㄥˋ geng4 e/4 big5e
 乾 ㄍㄢ gan e0 big5
 甘 ㄍㄢ gan e0 big5
 干 ㄍㄢ gan e0 big5
@@ -4756,6 +4758,7 @@
 亙 ㄍㄣˋ gen4 ep4 big5
 艮 ㄍㄣˋ gen4 ep4 big5
 茛 ㄍㄣˋ gen4 ep4 big5
+亘 ㄍㄣˋ gen4 ep4 big5e
 哏 ㄍㄣˊ gen2 ep6 big5
 ㄑ ㄑ qi f big5
 區 ㄑㄩ qu fm big5
@@ -11188,6 +11191,7 @@
 蠉 ㄒㄩㄢ xuan vm0 big5
 矎 ㄒㄩㄢ xuan vm0 big5
 煊 ㄒㄩㄢ xuan vm0 big5e
+亘 ㄒㄩㄢ xuan vm0 big5e
 選 ㄒㄩㄢˇ xuan3 vm03 big5
 咺 ㄒㄩㄢˇ xuan3 vm03 big5
 烜 ㄒㄩㄢˇ xuan3 vm03 big5
