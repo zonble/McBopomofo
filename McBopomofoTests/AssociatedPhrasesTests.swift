@@ -62,10 +62,16 @@ final class AssociatedPhrasesTests {
             } errorCallback: {
             }
         }
+        let params = BuildAssociatedPhraseParams()
+        params.previousState = state
+        params.prefixCursorIndex = 1
+        params.reading = reading
+        params.value = value
+        params.candidateIndex = 0
+        params.useVerticalMode = false
+        params.useShiftKey = false
         guard
-            let associatedPhrases = handler.buildAssociatedPhraseState(
-                withPreviousState: state, prefixCursorAt: 1, reading: reading, value: value,
-                selectedCandidateIndex: 0, useVerticalMode: false, useShiftKey: false)
+            let associatedPhrases = handler.buildAssociatedPhraseState(with: params)
                 as? InputState.AssociatedPhrases
         else {
             Issue.record("There should be an associated phrase state")
@@ -94,11 +100,16 @@ final class AssociatedPhrasesTests {
             } errorCallback: {
             }
         }
+        let params = BuildAssociatedPhraseParams()
+        params.previousState = state
+        params.prefixCursorIndex = 1
+        params.reading = "_punctuation_{"
+        params.value = input
+        params.candidateIndex = 0
+        params.useVerticalMode = false
+        params.useShiftKey = false
         guard
-            let associatedPhrases = handler.buildAssociatedPhraseState(
-                withPreviousState: state, prefixCursorAt: 1, reading: "_punctuation_{",
-                value: input,
-                selectedCandidateIndex: 0, useVerticalMode: false, useShiftKey: false)
+            let associatedPhrases = handler.buildAssociatedPhraseState(with: params)
                 as? InputState.AssociatedPhrases
         else {
             Issue.record("There should be an associated phrase state")
