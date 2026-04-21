@@ -98,7 +98,7 @@ extension McBopomofoInputMethodController: CandidateControllerDelegate {
                             if Preferences.beepUponInputError {
                                 NSSound.beep()
                             }
-                        }, useShiftKey: true)
+                        }, useShiftKey: true, maxCandidateCount: 0)
                 }
             default:
                 break

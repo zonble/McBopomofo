@@ -544,7 +544,7 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
         stateCallback(inputting);
 
         if (_inputMode == InputModeBopomofo && Preferences.associatedPhrasesEnabled) {
-            [self handleAssociatedPhraseWithState:(InputStateInputting *)inputting useVerticalMode:input.useVerticalMode stateCallback:stateCallback errorCallback:errorCallback useShiftKey:YES];
+            [self handleAssociatedPhraseWithState:(InputStateInputting *)inputting useVerticalMode:input.useVerticalMode stateCallback:stateCallback errorCallback:errorCallback useShiftKey:YES maxCandidateCount:2];
         } else if (_inputMode == InputModePlainBopomofo) {
             InputStateChoosingCandidate *choosingCandidates = [self _buildCandidateStateFromInputtingState:inputting useVerticalMode:input.useVerticalMode];
 
@@ -708,7 +708,7 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
         }
         if (Preferences.shiftEnterEnabled && _inputMode == InputModeBopomofo && input.isShiftHold &&
             [state isKindOfClass:[InputStateInputting class]]) {
-            return [self handleAssociatedPhraseWithState:(InputStateInputting *)state useVerticalMode:input.useVerticalMode stateCallback:stateCallback errorCallback:errorCallback useShiftKey:NO];
+            return [self handleAssociatedPhraseWithState:(InputStateInputting *)state useVerticalMode:input.useVerticalMode stateCallback:stateCallback errorCallback:errorCallback useShiftKey:NO maxCandidateCount:0];
         }
         return [self _handleEnterWithState:state stateCallback:stateCallback errorCallback:errorCallback];
     }
@@ -1279,7 +1279,7 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
     stateCallback(inputting);
 
     if (_inputMode == InputModeBopomofo && Preferences.associatedPhrasesEnabled) {
-        [self handleAssociatedPhraseWithState:(InputStateInputting *)inputting useVerticalMode:useVerticalMode stateCallback:stateCallback errorCallback:errorCallback useShiftKey:YES];
+        [self handleAssociatedPhraseWithState:(InputStateInputting *)inputting useVerticalMode:useVerticalMode stateCallback:stateCallback errorCallback:errorCallback useShiftKey:YES maxCandidateCount:0];
     } else if (_inputMode == InputModePlainBopomofo && _bpmfReadingBuffer->isEmpty()) {
         InputStateChoosingCandidate *candidateState = [self _buildCandidateStateFromInputtingState:(InputStateInputting *)[self buildInputtingState] useVerticalMode:useVerticalMode];
 
@@ -1702,7 +1702,17 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
                 InputStateCandidate *candidate = current.candidates[selectedCandidateIndex];
                 NSString *prefixReading = candidate.reading;
                 NSString *prefixValue = candidate.value;
-                InputState *newState = [self buildAssociatedPhraseStateWithPreviousState:current candidateStateOriginalCursorAt:current.originalCursorIndex prefixReading:prefixReading value:prefixValue selectedCandidateIndex:selectedCandidateIndex useVerticalMode:current.useVerticalMode useShiftKey:NO];
+
+                BuildAssociatedPhraseParams *params = [[BuildAssociatedPhraseParams alloc] init];
+                params.previousState = current;
+                params.prefixCursorIndex = [self computeActualCursorIndex:current.originalCursorIndex];
+                params.reading = prefixReading;
+                params.value = prefixValue;
+                params.candidateIndex = 0;
+                params.useVerticalMode = current.useVerticalMode;
+                params.useShiftKey = NO;
+                params.maxCadnidates = NSIntegerMax;
+                InputState *newState = [self buildAssociatedPhraseStateWithParams:params];
                 if (newState) {
                     stateCallback(newState);
                 } else {
@@ -2190,6 +2200,7 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
                           stateCallback:(void (^)(InputState *))stateCallback
                           errorCallback:(void (^)(void))errorCallback
                             useShiftKey:(BOOL)useShiftKey
+                      maxCandidateCount:(size_t)maxCandidateCount
 {
     size_t cursor = _grid->cursor();
 
@@ -2284,7 +2295,16 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
 
         NSString *combinedReading = @(McBopomofo::AssociatedPhrasesV2::CombineReadings(rdSlice).c_str());
         NSString *actualValue = @(value.str().c_str());
-        InputState *newState = [self buildAssociatedPhraseStateWithPreviousState:state prefixCursorAt:prefixCursorIndex reading:combinedReading value:actualValue selectedCandidateIndex:0 useVerticalMode:useVerticalMode useShiftKey:useShiftKey];
+        BuildAssociatedPhraseParams *params = [[BuildAssociatedPhraseParams alloc] init];
+        params.previousState = state;
+        params.prefixCursorIndex = prefixCursorIndex;
+        params.reading = combinedReading;
+        params.value = actualValue;
+        params.candidateIndex = 0;
+        params.useVerticalMode = useVerticalMode;
+        params.useShiftKey = useShiftKey;
+        params.maxCadnidates = maxCandidateCount;
+        InputState *newState = [self buildAssociatedPhraseStateWithParams:params];
         if (newState) {
             stateCallback(newState);
             return YES;
@@ -2554,18 +2574,12 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
     return nil;
 }
 
-- (nullable InputState *)buildAssociatedPhraseStateWithPreviousState:(id)state
-                                                      prefixCursorAt:(size_t)prefixCursorIndex
-                                                             reading:(NSString *)reading
-                                                               value:(NSString *)value
-                                              selectedCandidateIndex:(NSInteger)candidateIndex
-                                                     useVerticalMode:(BOOL)useVerticalMode
-                                                         useShiftKey:(BOOL)useShiftKey
+- (nullable InputState *)buildAssociatedPhraseStateWithParams:(BuildAssociatedPhraseParams *)params
 {
     BOOL scToTc = Preferences.chineseConversionEnabled && Preferences.chineseConversionStyle == ChineseConversionStyleModel;
 
-    std::vector<std::string> splitReadings = McBopomofo::AssociatedPhrasesV2::SplitReadings(std::string(reading.UTF8String));
-    NSString *actualValue = value;
+    std::vector<std::string> splitReadings = McBopomofo::AssociatedPhrasesV2::SplitReadings(std::string(params.reading.UTF8String));
+    NSString *actualValue = params.value;
     if (scToTc) {
         // The data is in Traditional Chinese, and so if ChineseConversionStyleModel is enabled, we need to convert the prefix back.
         actualValue = [[OpenCCBridge sharedInstance] convertToTraditional:actualValue];
@@ -2578,6 +2592,7 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
     }
 
     NSMutableArray<InputStateCandidate *> *array = [NSMutableArray array];
+    size_t added = 0;
     for (const auto& phrase : phrases) {
         std::string combinedReading = McBopomofo::AssociatedPhrasesV2::CombineReadings(phrase.readings);
         NSString *candidateReading = @(combinedReading.c_str());
@@ -2595,20 +2610,13 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
 
         InputStateCandidate *candidate = [[InputStateCandidate alloc] initWithReading:candidateReading value:candidateValue displayText:displayText rawValue:candidateValue];
         [array addObject:candidate];
+        added++;
+        if (params.maxCadnidates > 0 && added >= params.maxCadnidates) {
+            break;
+        }
     }
-    InputStateAssociatedPhrases *associatedPhrases = [[InputStateAssociatedPhrases alloc] initWithPreviousState:state prefixCursorIndex:prefixCursorIndex prefixReading:reading prefixValue:value selectedIndex:candidateIndex candidates:array useVerticalMode:useVerticalMode useShiftKey:useShiftKey];
+    InputStateAssociatedPhrases *associatedPhrases = [[InputStateAssociatedPhrases alloc] initWithPreviousState:params.previousState prefixCursorIndex:params.prefixCursorIndex prefixReading:params.reading prefixValue:params.value selectedIndex:params.candidateIndex candidates:array useVerticalMode:params.useVerticalMode useShiftKey:params.useShiftKey];
     return associatedPhrases;
-}
-
-- (nullable InputState *)buildAssociatedPhraseStateWithPreviousState:(id)state
-                                      candidateStateOriginalCursorAt:(size_t)candidtaeStateOriginalCursorIndex
-                                                       prefixReading:(NSString *)prefixReading
-                                                               value:(NSString *)prefixValue
-                                              selectedCandidateIndex:(NSInteger)candidateIndex
-                                                     useVerticalMode:(BOOL)useVerticalMode
-                                                         useShiftKey:(BOOL)useShiftKey
-{
-    return [self buildAssociatedPhraseStateWithPreviousState:state prefixCursorAt:[self computeActualCursorIndex:candidtaeStateOriginalCursorIndex] reading:prefixReading value:prefixValue selectedCandidateIndex:candidateIndex useVerticalMode:useVerticalMode useShiftKey:useShiftKey];
 }
 
 - (NSArray<NSString *> *)collectUserFileIssues
@@ -2665,4 +2673,15 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
     return updatedState;
 }
 
+@end
+
+@implementation BuildAssociatedPhraseParams
+@synthesize previousState;
+@synthesize prefixCursorIndex;
+@synthesize reading;
+@synthesize value;
+@synthesize candidateIndex;
+@synthesize useVerticalMode;
+@synthesize useShiftKey;
+@synthesize maxCadnidates;
 @end

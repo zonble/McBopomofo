@@ -43,6 +43,17 @@ extern InputMode InputModePlainBopomofo;
 - (BOOL)keyHandlerDidRequestReloadLanguageModel:(KeyHandler *)keyHandler;
 @end
 
+@interface BuildAssociatedPhraseParams: NSObject
+@property (strong, nonatomic) id previousState;
+@property (assign, nonatomic) size_t prefixCursorIndex;
+@property (strong, nonatomic) NSString *reading;
+@property (strong, nonatomic) NSString *value;
+@property (assign, nonatomic) NSInteger candidateIndex;
+@property (assign, nonatomic) BOOL useVerticalMode;
+@property (assign, nonatomic) BOOL useShiftKey;
+@property (assign, nonatomic) size_t maxCadnidates;
+@end
+
 @interface KeyHandler : NSObject
 
 - (BOOL)handleInput:(KeyHandlerInput *)input
@@ -53,7 +64,8 @@ extern InputMode InputModePlainBopomofo;
                         useVerticalMode:(BOOL)useVerticalMode
                           stateCallback:(void (^)(InputState *))stateCallback
                           errorCallback:(void (^)(void))errorCallback
-                            useShiftKey:(BOOL)useShiftKey;
+                            useShiftKey:(BOOL)useShiftKey
+                      maxCandidateCount:(size_t)maxCandidateCount;
 
 - (void)syncWithPreferences;
 - (void)fixNodeWithReading:(NSString *)reading
@@ -75,20 +87,7 @@ extern InputMode InputModePlainBopomofo;
 - (nullable InputState *)buildAssociatedPhrasePlainStateWithReading:(NSString *)reading
                                                               value:(NSString *)value
                                                     useVerticalMode:(BOOL)useVerticalMode;
-- (nullable InputState *)buildAssociatedPhraseStateWithPreviousState:(id)state
-                                                      prefixCursorAt:(size_t)prefixCursorIndex
-                                                             reading:(NSString *)reading
-                                                               value:(NSString *)value
-                                              selectedCandidateIndex:(NSInteger)candidateIndex
-                                                     useVerticalMode:(BOOL)useVerticalMode
-                                                         useShiftKey:(BOOL)useShiftKey;
-- (nullable InputState *)buildAssociatedPhraseStateWithPreviousState:(id)state
-                                      candidateStateOriginalCursorAt:(size_t)candidtaeStateOriginalCursorIndex
-                                                       prefixReading:(NSString *)prefixReading
-                                                               value:(NSString *)prefixValue
-                                              selectedCandidateIndex:(NSInteger)candidateIndex
-                                                     useVerticalMode:(BOOL)useVerticalMode
-                                                         useShiftKey:(BOOL)useShiftKey;
+- (nullable InputState *)buildAssociatedPhraseStateWithParams:(BuildAssociatedPhraseParams *)params;
 
 - (size_t)computeActualCursorIndex:(size_t)cursor;
 
