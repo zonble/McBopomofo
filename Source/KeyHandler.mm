@@ -1523,41 +1523,41 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
             NSMutableArray *entries = [[NSMutableArray alloc] init];
             NSString *title = @"";
             if (isPlusKey) {
-                InputStateCustomMenuEntry *boost = [[InputStateCustomMenuEntry alloc] initWithTitle:NSLocalizedString(@"Boost", @"")
-                                                                                           callback:^{
-                                                                                               __strong __typeof(weakSelf) strongSelf = weakSelf;
-                                                                                               if (!strongSelf) {
-                                                                                                   return;
-                                                                                               }
-                                                                                               [strongSelf.delegate keyHandler:strongSelf didRequestBoostScoreForPhrase:candidate.value reading:reading];
-                                                                                               [strongSelf.delegate keyHandlerDidRequestReloadLanguageModel:strongSelf];
-                                                                                               [strongSelf _walk];
-                                                                                               InputStateInputting *inputting = (InputStateInputting *)[strongSelf buildInputtingState];
-                                                                                               stateCallback(inputting);
-                                                                                           }];
+                void (^callback)(void) = ^{
+                    __strong __typeof(weakSelf) strongSelf = weakSelf;
+                    if (!strongSelf) {
+                        return;
+                    }
+                    [strongSelf.delegate keyHandler:strongSelf didRequestBoostScoreForPhrase:candidate.value reading:reading];
+                    [strongSelf.delegate keyHandlerDidRequestReloadLanguageModel:strongSelf];
+                    [strongSelf _walk];
+                    InputStateInputting *inputting = (InputStateInputting *)[strongSelf buildInputtingState];
+                    stateCallback(inputting);
+                };
+                InputStateCustomMenuEntry *boost = [[InputStateCustomMenuEntry alloc] initWithTitle:NSLocalizedString(@"Boost", @"") callback: callback];
                 [entries addObject:boost];
                 title = [NSString stringWithFormat:NSLocalizedString(@"Do you want to boost the score of the phrase \"%@\"?", @""), candidate.value];
             } else if (isMinusKey) {
-                InputStateCustomMenuEntry *exclude = [[InputStateCustomMenuEntry alloc] initWithTitle:NSLocalizedString(@"Exclude", @"")
-                                                                                             callback:^{
-                                                                                                 __strong __typeof(weakSelf) strongSelf = weakSelf;
-                                                                                                 if (!strongSelf) {
-                                                                                                     return;
-                                                                                                 }
-                                                                                                 [strongSelf.delegate keyHandler:strongSelf didRequestExcludePhrase:candidate.value reading:reading];
-                                                                                                 [strongSelf.delegate keyHandlerDidRequestReloadLanguageModel:strongSelf];
-                                                                                                 [strongSelf _walk];
-                                                                                                 InputStateInputting *inputting = (InputStateInputting *)[strongSelf buildInputtingState];
-                                                                                                 stateCallback(inputting);
-                                                                                             }];
+                void (^callback)(void) = ^{
+                    __strong __typeof(weakSelf) strongSelf = weakSelf;
+                    if (!strongSelf) {
+                        return;
+                    }
+                    [strongSelf.delegate keyHandler:strongSelf didRequestExcludePhrase:candidate.value reading:reading];
+                    [strongSelf.delegate keyHandlerDidRequestReloadLanguageModel:strongSelf];
+                    [strongSelf _walk];
+                    InputStateInputting *inputting = (InputStateInputting *)[strongSelf buildInputtingState];
+                    stateCallback(inputting);
+                };
+                InputStateCustomMenuEntry *exclude = [[InputStateCustomMenuEntry alloc] initWithTitle:NSLocalizedString(@"Exclude", @"") callback:callback];
                 [entries addObject:exclude];
                 title = [NSString stringWithFormat:NSLocalizedString(@"Do you want to exclude the phrase \"%@\"?", @""), candidate.value];
             }
-            InputStateCustomMenuEntry *cancel = [[InputStateCustomMenuEntry alloc] initWithTitle:NSLocalizedString(@"Cancel", @"")
-                                                                                        callback:^{
-                                                                                            stateCallback(currentState);
-                                                                                            gCurrentCandidateController.selectedCandidateIndex = index;
-                                                                                        }];
+            void (^cancalCallback)(void) = ^{
+                stateCallback(currentState);
+                gCurrentCandidateController.selectedCandidateIndex = index;
+            };
+            InputStateCustomMenuEntry *cancel = [[InputStateCustomMenuEntry alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") callback:cancalCallback];
             [entries addObject:cancel];
 
             InputStateCustomMenu *confirm = [[InputStateCustomMenu alloc] initWithComposingBuffer:[currentState composingBuffer] cursorIndex:[currentState cursorIndex] title:title entries:entries previousState:currentState selectedIndex:index];
@@ -1758,6 +1758,10 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
     }
 
     if (isPageDown) {
+        if ([state isKindOfClass:[InputStateAssociatedPhrases class]] && [(InputStateAssociatedPhrases *)state useShiftKey]) {
+            return NO;
+        }
+
         BOOL updated = [gCurrentCandidateController showNextPage];
         if (!updated) {
             errorCallback();
@@ -1766,6 +1770,10 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
     }
 
     if (isPageUp) {
+        if ([state isKindOfClass:[InputStateAssociatedPhrases class]] && [(InputStateAssociatedPhrases *)state useShiftKey]) {
+            return NO;
+        }
+
         BOOL updated = [gCurrentCandidateController showPreviousPage];
         if (!updated) {
             errorCallback();
@@ -1773,10 +1781,25 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
         return YES;
     }
 
+    NSInteger candidateCount = 0;
+    if ([state conformsToProtocol:@protocol(CandidateProvider)]) {
+        candidateCount = ((id<CandidateProvider>)state).candidateCount;
+    }
+
+
     if (input.isLeft) {
         if ([state isKindOfClass:[InputStateAssociatedPhrases class]]) {
-            if ([(InputStateAssociatedPhrases *)state useShiftKey] && input.isShiftHold) {
-                return NO;
+            if ([(InputStateAssociatedPhrases *)state useShiftKey] ) {
+                if ([gCurrentCandidateController isKindOfClass:[VTHorizontalCandidateController class]]) {
+                    if (gCurrentCandidateController.selectedCandidateIndex == 0) {
+                        return NO;
+                    }
+                } else {
+                    return NO;
+                }
+                if (input.isShiftHold) {
+                    return NO;
+                }
             }
         }
 
@@ -1804,8 +1827,17 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
 
     if (input.isRight) {
         if ([state isKindOfClass:[InputStateAssociatedPhrases class]]) {
-            if ([(InputStateAssociatedPhrases *)state useShiftKey] && input.isShiftHold) {
-                return NO;
+            if ([(InputStateAssociatedPhrases *)state useShiftKey] ) {
+                if ([gCurrentCandidateController isKindOfClass:[VTHorizontalCandidateController class]]) {
+                    if (gCurrentCandidateController.selectedCandidateIndex == candidateCount - 1) {
+                        return NO;
+                    }
+                } else {
+                    return NO;
+                }
+                if (input.isShiftHold) {
+                    return NO;
+                }
             }
         }
 
@@ -1869,11 +1901,6 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
         }
 
         return YES;
-    }
-
-    NSInteger candidateCount = 0;
-    if ([state conformsToProtocol:@protocol(CandidateProvider)]) {
-        candidateCount = ((id<CandidateProvider>)state).candidateCount;
     }
 
     if (!candidateCount) {
