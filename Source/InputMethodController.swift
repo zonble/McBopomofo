@@ -868,7 +868,7 @@ extension McBopomofoInputMethodController {
         let shouldUseShift =
             switch state {
             case let state as InputState.AssociatedPhrases:
-                state.useShiftKey
+                state.autoTriggered
             case is InputState.AssociatedPhrasesPlain,
                 is InputState.Number:
                 true

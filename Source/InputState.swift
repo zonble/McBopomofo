@@ -604,7 +604,7 @@ class InputState: NSObject {
         @objc private(set) var selectedIndex: Int = 0
         @objc private(set) var candidates: [Candidate] = []
         @objc private(set) var useVerticalMode: Bool = false
-        @objc private(set) var useShiftKey: Bool = false
+        @objc private(set) var autoTriggered: Bool = false
 
         @objc init(
             previousState: NotEmpty, prefixCursorIndex: Int, prefixReading: String,
@@ -618,7 +618,7 @@ class InputState: NSObject {
             self.selectedIndex = selectedIndex
             self.candidates = candidates
             self.useVerticalMode = useVerticalMode
-            self.useShiftKey = useShiftKey
+            self.autoTriggered = useShiftKey
             super.init(
                 composingBuffer: previousState.composingBuffer,
                 cursorIndex: previousState.cursorIndex)

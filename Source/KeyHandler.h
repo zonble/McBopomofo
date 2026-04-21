@@ -50,7 +50,7 @@ extern InputMode InputModePlainBopomofo;
 @property (strong, nonatomic) NSString *value;
 @property (assign, nonatomic) NSInteger candidateIndex;
 @property (assign, nonatomic) BOOL useVerticalMode;
-@property (assign, nonatomic) BOOL useShiftKey;
+@property (assign, nonatomic) BOOL autoTriggered;
 @property (assign, nonatomic) size_t maxCadnidates;
 @end
 
@@ -64,7 +64,7 @@ extern InputMode InputModePlainBopomofo;
                         useVerticalMode:(BOOL)useVerticalMode
                           stateCallback:(void (^)(InputState *))stateCallback
                           errorCallback:(void (^)(void))errorCallback
-                            useShiftKey:(BOOL)useShiftKey
+                            autoTriggered:(BOOL)useShiftKey
                       maxCandidateCount:(size_t)maxCandidateCount;
 
 - (void)syncWithPreferences;

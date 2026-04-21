@@ -72,7 +72,7 @@ final class AssociatedPhrasesTests {
         params.value = value
         params.candidateIndex = 0
         params.useVerticalMode = false
-        params.useShiftKey = false
+        params.autoTriggered = false
         guard
             let associatedPhrases = handler.buildAssociatedPhraseState(with: params)
                 as? InputState.AssociatedPhrases
@@ -98,7 +98,7 @@ final class AssociatedPhrasesTests {
         params.value = input
         params.candidateIndex = 0
         params.useVerticalMode = false
-        params.useShiftKey = false
+        params.autoTriggered = false
         guard
             let associatedPhrases = handler.buildAssociatedPhraseState(with: params)
                 as? InputState.AssociatedPhrases
@@ -130,7 +130,7 @@ final class AssociatedPhrasesTests {
         params.value = "一"
         params.candidateIndex = 1
         params.useVerticalMode = true
-        params.useShiftKey = true
+        params.autoTriggered = true
         params.maxCadnidates = 1
 
         guard
@@ -146,7 +146,7 @@ final class AssociatedPhrasesTests {
         #expect(associatedPhrases.prefixValue == "一")
         #expect(associatedPhrases.selectedIndex == 1)
         #expect(associatedPhrases.useVerticalMode)
-        #expect(associatedPhrases.useShiftKey)
+        #expect(associatedPhrases.autoTriggered)
         #expect(associatedPhrases.candidates.count == 1)
     }
 

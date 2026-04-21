@@ -1275,9 +1275,12 @@ class KeyHandlerBopomofoTests: XCTestCase {
 
     func testInputSpace() {
         let enabled = Preferences.chooseCandidateUsingSpace
+        let associatedPhrases = Preferences.associatedPhrasesEnabled
         Preferences.chooseCandidateUsingSpace = false
+        Preferences.associatedPhrasesEnabled = false
         defer {
             Preferences.chooseCandidateUsingSpace = enabled
+            Preferences.associatedPhrasesEnabled = associatedPhrases
         }
 
         var state: InputState = InputState.Empty()
@@ -1333,9 +1336,12 @@ class KeyHandlerBopomofoTests: XCTestCase {
 
     func testInputSpaceInBetween() {
         let enabled = Preferences.chooseCandidateUsingSpace
+        let asociatedPhrases = Preferences.associatedPhrasesEnabled
         Preferences.chooseCandidateUsingSpace = false
+        Preferences.associatedPhrasesEnabled = false
         defer {
             Preferences.chooseCandidateUsingSpace = enabled
+            Preferences.associatedPhrasesEnabled = asociatedPhrases
         }
         var state: InputState = InputState.Empty()
         let keys = Array("su3cl3").map {
@@ -1375,6 +1381,12 @@ class KeyHandlerBopomofoTests: XCTestCase {
     }
 
     func testHomeAndEnd() {
+        let asociatedPhrases = Preferences.associatedPhrasesEnabled
+        Preferences.associatedPhrasesEnabled = false
+        defer {
+            Preferences.associatedPhrasesEnabled = asociatedPhrases
+        }
+
         var state: InputState = InputState.Empty()
         let keys = Array("su3cl3").map {
             String($0)
@@ -1570,6 +1582,11 @@ class KeyHandlerBopomofoTests: XCTestCase {
     }
 
     func testMarkingLeft() {
+        let asociatedPhrases = Preferences.associatedPhrasesEnabled
+        Preferences.associatedPhrasesEnabled = false
+        defer {
+            Preferences.associatedPhrasesEnabled = asociatedPhrases
+        }
         var state: InputState = InputState.Empty()
         let keys = Array("su3cl3").map {
             String($0)
@@ -1639,6 +1656,11 @@ class KeyHandlerBopomofoTests: XCTestCase {
     }
 
     func testMarkingRight() {
+        let asociatedPhrases = Preferences.associatedPhrasesEnabled
+        Preferences.associatedPhrasesEnabled = false
+        defer {
+            Preferences.associatedPhrasesEnabled = asociatedPhrases
+        }
         var state: InputState = InputState.Empty()
         let keys = Array("su3cl3").map {
             String($0)
@@ -1725,6 +1747,11 @@ class KeyHandlerBopomofoTests: XCTestCase {
     }
 
     func testCancelMarking() {
+        let asociatedPhrases = Preferences.associatedPhrasesEnabled
+        Preferences.associatedPhrasesEnabled = false
+        defer {
+            Preferences.associatedPhrasesEnabled = asociatedPhrases
+        }
         var state: InputState = InputState.Empty()
         let keys = Array("su3cl3").map {
             String($0)
@@ -1911,6 +1938,11 @@ class KeyHandlerBopomofoTests: XCTestCase {
     }
 
     func testEscKeyWithCandidate() {
+        let asociatedPhrases = Preferences.associatedPhrasesEnabled
+        Preferences.associatedPhrasesEnabled = false
+        defer {
+            Preferences.associatedPhrasesEnabled = asociatedPhrases
+        }
         var state: InputState = InputState.Empty()
         let keys = Array("w8 ").map {
             String($0)
@@ -1946,6 +1978,11 @@ class KeyHandlerBopomofoTests: XCTestCase {
     }
 
     func testHomeKey() {
+        let asociatedPhrases = Preferences.associatedPhrasesEnabled
+        Preferences.associatedPhrasesEnabled = false
+        defer {
+            Preferences.associatedPhrasesEnabled = asociatedPhrases
+        }
         var state: InputState = InputState.Empty()
         let keys = Array("w8 ").map {
             String($0)
@@ -1974,6 +2011,11 @@ class KeyHandlerBopomofoTests: XCTestCase {
     }
 
     func testHomeAndEndKey() {
+        let asociatedPhrases = Preferences.associatedPhrasesEnabled
+        Preferences.associatedPhrasesEnabled = false
+        defer {
+            Preferences.associatedPhrasesEnabled = asociatedPhrases
+        }
         var state: InputState = InputState.Empty()
         let keys = Array("w8 ").map {
             String($0)
@@ -2085,6 +2127,11 @@ class KeyHandlerBopomofoTests: XCTestCase {
     }
 
     func testLookUpCandidateInDictionaryAndCancelWithTabKey() {
+        let asociatedPhrases = Preferences.associatedPhrasesEnabled
+        Preferences.associatedPhrasesEnabled = false
+        defer {
+            Preferences.associatedPhrasesEnabled = asociatedPhrases
+        }
         var state: InputState = InputState.Empty()
         let keys = Array("wu0 dj/ ").map {
             String($0)
@@ -2126,6 +2173,11 @@ class KeyHandlerBopomofoTests: XCTestCase {
     }
 
     func testLookUpCandidateInDictionaryAndCancelWithEscKey() {
+        let asociatedPhrases = Preferences.associatedPhrasesEnabled
+        Preferences.associatedPhrasesEnabled = false
+        defer {
+            Preferences.associatedPhrasesEnabled = asociatedPhrases
+        }
         var state: InputState = InputState.Empty()
         let keys = Array("wu0 dj/ ").map {
             String($0)
@@ -2767,6 +2819,12 @@ extension KeyHandlerBopomofoTests {
     }
 
     func testBopomofoFontAnnotationSupport(input: String, expected: String) {
+        let asociatedPhrases = Preferences.associatedPhrasesEnabled
+        Preferences.associatedPhrasesEnabled = false
+        defer {
+            Preferences.associatedPhrasesEnabled = asociatedPhrases
+        }
+
         let bopomofoFontAnnotationSupportEnabled = Preferences.bopomofoFontAnnotationSupportEnabled
         Preferences.bopomofoFontAnnotationSupportEnabled = true
         defer {
@@ -2925,6 +2983,11 @@ extension KeyHandlerBopomofoTests {
     }
 
     func testInputBufferWithCharactersThenBacktickThenEsc() {
+        let asociatedPhrases = Preferences.associatedPhrasesEnabled
+        Preferences.associatedPhrasesEnabled = false
+        defer {
+            Preferences.associatedPhrasesEnabled = asociatedPhrases
+        }
         // Type something in the buffer, then press ` to enter choosing punctuation list, then ESC to return to inputting state
         var state: InputState = InputState.Empty()
 
