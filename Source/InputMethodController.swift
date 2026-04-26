@@ -865,19 +865,18 @@ extension McBopomofoInputMethodController {
         let keyLabels =
             candidateKeys.count >= 4
             ? Array(candidateKeys) : Array(Preferences.defaultCandidateKeys)
-        let shouldUseShift =
-            switch state {
-            case let state as InputState.AssociatedPhrases:
-                state.autoTriggered
-            case is InputState.AssociatedPhrasesPlain,
-                is InputState.Number:
-                true
-            default:
-                false
-            }
-        let keyLabelPrefix = shouldUseShift ? "⇧ " : ""
+
+        let keyLabelFormat: (String)->String = switch state {
+        case let state as InputState.AssociatedPhrases where state.autoTriggered:
+            { _ in "⇧ ⏎" }
+        case is InputState.AssociatedPhrasesPlain,
+            is InputState.Number:
+            { "⇧ " + $0 }
+        default:
+            { $0 }
+        }
         gCurrentCandidateController?.keyLabels = keyLabels.map {
-            CandidateKeyLabel(key: String($0), displayedText: keyLabelPrefix + String($0))
+            CandidateKeyLabel(key: String($0), displayedText: keyLabelFormat(String($0)))
         }
 
         gCurrentCandidateController?.delegate = self

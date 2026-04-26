@@ -51,7 +51,6 @@ extern InputMode InputModePlainBopomofo;
 @property (assign, nonatomic) NSInteger candidateIndex;
 @property (assign, nonatomic) BOOL useVerticalMode;
 @property (assign, nonatomic) BOOL autoTriggered;
-@property (assign, nonatomic) size_t maxCadnidates;
 @end
 
 @interface KeyHandler : NSObject
