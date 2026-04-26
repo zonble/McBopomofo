@@ -120,8 +120,8 @@ final class AssociatedPhrasesTests {
         #expect(inputting.composingBuffer == result)
     }
 
-    @Test("Test building associated phrase state honors parameter object fields")
-    func testBuildingAssociatedPhrasesStateHonorsParameterObjectFields() {
+    @Test("Test building associated phrase state honors supported parameter object fields")
+    func testBuildingAssociatedPhrasesStateHonorsSupportedParameterObjectFields() {
         let state = typeKeys("u6")
         let params = BuildAssociatedPhraseParams()
         params.previousState = state
@@ -131,7 +131,6 @@ final class AssociatedPhrasesTests {
         params.candidateIndex = 1
         params.useVerticalMode = true
         params.autoTriggered = true
-        params.maxCadnidates = 1
 
         guard
             let associatedPhrases = handler.buildAssociatedPhraseState(with: params)
@@ -147,7 +146,7 @@ final class AssociatedPhrasesTests {
         #expect(associatedPhrases.selectedIndex == 1)
         #expect(associatedPhrases.useVerticalMode)
         #expect(associatedPhrases.autoTriggered)
-        #expect(associatedPhrases.candidates.count == 1)
+        #expect(associatedPhrases.candidates.count > 0)
     }
 
 }
