@@ -23,8 +23,10 @@
 
 #include "reading_grid.h"
 
+#include <algorithm>
 #include <iostream>
 #include <map>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -210,8 +212,8 @@ TEST(ReadingGridTest, Span) {
   auto n10 = std::make_shared<ReadingGrid::Node>("", 10, lm.getUnigrams(""));
   ASSERT_DEATH({ (void)span.add(n10); }, "Assertion");
   ASSERT_DEATH({ (void)span.nodeOf(0); }, "Assertion");
-  ASSERT_DEATH({ (void)span.nodeOf(ReadingGrid::kMaximumSpanLength + 1); },
-               "Assertion");
+  ASSERT_DEATH(
+      { (void)span.nodeOf(ReadingGrid::kMaximumSpanLength + 1); }, "Assertion");
 #endif
 }
 
@@ -742,8 +744,8 @@ TEST(ReadingGridTest, DisambiguateCandidates) {
   ASSERT_EQ(result.valuesAsStrings(),
             (std::vector<std::string>{"高熱", "🔥", "焰", "危險"}));
 
-  ASSERT_TRUE(
-      grid.overrideCandidate(loc, ReadingGrid::Candidate("ㄏㄨㄛˇㄧㄢˋ", "🔥")));
+  ASSERT_TRUE(grid.overrideCandidate(
+      loc, ReadingGrid::Candidate("ㄏㄨㄛˇㄧㄢˋ", "🔥")));
   result = grid.walk();
   ASSERT_EQ(result.valuesAsStrings(),
             (std::vector<std::string>{"高熱", "🔥", "危險"}));
