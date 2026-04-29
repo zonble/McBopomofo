@@ -55,8 +55,8 @@ class LanguageModel {
 
    private:
     std::string value_;
-    std::string rawValue_;
     double score_;
+    std::string rawValue_;
   };
 };
 
