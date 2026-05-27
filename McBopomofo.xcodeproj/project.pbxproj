@@ -100,6 +100,13 @@
 		D4F0BBE1279AF8B30071253C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F0BBE0279AF8B30071253C /* AppDelegate.swift */; };
 		D4F0BBE4279B08900071253C /* BundleTranslocate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F0BBE3279B08900071253C /* BundleTranslocate.m */; };
 		D4F0BBE7279B14C20071253C /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D4F0BBE9279B14C20071253C /* Credits.rtf */; };
+		E2A00002000000010000AA02 /* InputMode.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2A00001000000010000AA02 /* InputMode.mm */; };
+		E2A00002000000010000BB03 /* LanguageModelManagerBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2A00001000000010000BB03 /* LanguageModelManagerBridge.mm */; };
+		E2A00002000000010000BB04 /* LanguageModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A00001000000010000BB04 /* LanguageModelManager.swift */; };
+		E2A00002000000010000CC02 /* ServiceProviderInputHelperBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2A00001000000010000CC02 /* ServiceProviderInputHelperBridge.mm */; };
+		E2A00002000000010000CC03 /* ServiceProviderInputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A00001000000010000CC03 /* ServiceProviderInputHelper.swift */; };
+		E2A00002000000010000DD02 /* KeyHandlerCxxBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2A00001000000010000DD02 /* KeyHandlerCxxBridge.mm */; };
+		E2A00002000000010000DD03 /* KeyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A00001000000010000DD03 /* KeyHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -259,6 +266,18 @@
 		D4F0BBE8279B14C20071253C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = Base; path = Base.lproj/Credits.rtf; sourceTree = "<group>"; };
 		D4F0BBEA279B14CB0071253C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		D4F0BBEB279B14D00071253C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = "zh-Hant"; path = "zh-Hant.lproj/Credits.rtf"; sourceTree = "<group>"; };
+		E2A00001000000010000AA01 /* InputMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputMode.h; sourceTree = "<group>"; };
+		E2A00001000000010000AA02 /* InputMode.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = InputMode.mm; sourceTree = "<group>"; };
+		E2A00001000000010000BB01 /* LanguageModelManagerBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LanguageModelManagerBridge.h; sourceTree = "<group>"; };
+		E2A00001000000010000BB02 /* LanguageModelManagerBridge+Privates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LanguageModelManagerBridge+Privates.h"; sourceTree = "<group>"; };
+		E2A00001000000010000BB03 /* LanguageModelManagerBridge.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LanguageModelManagerBridge.mm; sourceTree = "<group>"; };
+		E2A00001000000010000BB04 /* LanguageModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageModelManager.swift; sourceTree = "<group>"; };
+		E2A00001000000010000CC01 /* ServiceProviderInputHelperBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceProviderInputHelperBridge.h; sourceTree = "<group>"; };
+		E2A00001000000010000CC02 /* ServiceProviderInputHelperBridge.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ServiceProviderInputHelperBridge.mm; sourceTree = "<group>"; };
+		E2A00001000000010000CC03 /* ServiceProviderInputHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProviderInputHelper.swift; sourceTree = "<group>"; };
+		E2A00001000000010000DD01 /* KeyHandlerCxxBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyHandlerCxxBridge.h; sourceTree = "<group>"; };
+		E2A00001000000010000DD02 /* KeyHandlerCxxBridge.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = KeyHandlerCxxBridge.mm; sourceTree = "<group>"; };
+		E2A00001000000010000DD03 /* KeyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -350,6 +369,18 @@
 				D47B92BF27972AC800458394 /* main.swift */,
 				6A0D4EF615FC0DA600ABF4B3 /* McBopomofo-Prefix.pch */,
 				D427A9BF25ED28CC005D43E0 /* McBopomofo-Bridging-Header.h */,
+				E2A00001000000010000AA01 /* InputMode.h */,
+				E2A00001000000010000AA02 /* InputMode.mm */,
+				E2A00001000000010000BB01 /* LanguageModelManagerBridge.h */,
+				E2A00001000000010000BB02 /* LanguageModelManagerBridge+Privates.h */,
+				E2A00001000000010000BB03 /* LanguageModelManagerBridge.mm */,
+				E2A00001000000010000BB04 /* LanguageModelManager.swift */,
+				E2A00001000000010000CC01 /* ServiceProviderInputHelperBridge.h */,
+				E2A00001000000010000CC02 /* ServiceProviderInputHelperBridge.mm */,
+				E2A00001000000010000CC03 /* ServiceProviderInputHelper.swift */,
+				E2A00001000000010000DD01 /* KeyHandlerCxxBridge.h */,
+				E2A00001000000010000DD02 /* KeyHandlerCxxBridge.mm */,
+				E2A00001000000010000DD03 /* KeyHandler.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -749,7 +780,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D41B626F2B87B5C100583148 /* ServiceProviderInputHelper.mm in Sources */,
 				D427F76C278CA2B0004A2160 /* AppDelegate.swift in Sources */,
 				6ACC3D442793701600F1B140 /* ParselessPhraseDB.cpp in Sources */,
 				D461B792279DAC010070E734 /* InputState.swift in Sources */,
@@ -761,7 +791,6 @@
 				6A660A702EAF371000D53D7B /* ByteBlockBackedDictionary.cpp in Sources */,
 				6A833E522F0A0FB30086AD0C /* VariantAnnotator.cpp in Sources */,
 				D4314F0D2ED3690F0071DD71 /* NumberInputHelper.swift in Sources */,
-				D4E569DC27A34D0E00AC2CEF /* KeyHandler.mm in Sources */,
 				6A4F5F982879E838008C4307 /* reading_grid.cpp in Sources */,
 				D47F7DD0278C0897002F9DD7 /* NonModalAlertWindowController.swift in Sources */,
 				D456576E279E4F7B00DF6BC9 /* KeyHandlerInput.swift in Sources */,
@@ -778,7 +807,13 @@
 				B058C5272AC9DF51002EDD66 /* ServiceProvider.swift in Sources */,
 				6ADF5B192BA513E000577D98 /* AssociatedPhrasesV2.cpp in Sources */,
 				6ADF5B1B2BA513E000577D98 /* UTF8Helper.cpp in Sources */,
-				D41355D8278D74B5005E5CBD /* LanguageModelManager.mm in Sources */,
+				E2A00002000000010000AA02 /* InputMode.mm in Sources */,
+				E2A00002000000010000BB03 /* LanguageModelManagerBridge.mm in Sources */,
+				E2A00002000000010000BB04 /* LanguageModelManager.swift in Sources */,
+				E2A00002000000010000CC02 /* ServiceProviderInputHelperBridge.mm in Sources */,
+				E2A00002000000010000CC03 /* ServiceProviderInputHelper.swift in Sources */,
+				E2A00002000000010000DD02 /* KeyHandlerCxxBridge.mm in Sources */,
+				E2A00002000000010000DD03 /* KeyHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
