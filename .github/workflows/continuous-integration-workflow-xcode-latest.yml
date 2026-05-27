@@ -40,6 +40,8 @@ jobs:
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: "^26.1.1"
+      - name: Compile with Xcode first
+        run: xcodebuild -scheme McBopomofoInstaller -configuration Debug build
       - name: Build McBopomofoLMLibTest
         run: cmake -DENABLE_TEST=1 -S . -B build
         working-directory: Source/Engine
