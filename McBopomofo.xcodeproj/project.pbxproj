@@ -84,7 +84,7 @@
 		D48F853E2EACDB6C00C2FDAB /* RomanNumbers in Frameworks */ = {isa = PBXBuildFile; productRef = D48F853D2EACDB6C00C2FDAB /* RomanNumbers */; };
 		D4A13D5A27A59F0B003BE359 /* InputMethodController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A13D5927A59D5C003BE359 /* InputMethodController.swift */; };
 		D4A8E43627A9E982002F7A07 /* KeyHandlerPlainBopomofoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A8E43527A9E982002F7A07 /* KeyHandlerPlainBopomofoTests.swift */; };
-		D4C2A9872B4309D700113711 /* UTF8HelperTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4C2A9862B4309D700113711 /* UTF8HelperTest.mm */; };
+		E10000022F4E000100000001 /* UTF8HelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000012F4E000100000001 /* UTF8HelperTests.swift */; };
 		D4C9CAB127AAC9690058DFEA /* NSStringUtils in Frameworks */ = {isa = PBXBuildFile; productRef = D4C9CAB027AAC9690058DFEA /* NSStringUtils */; };
 		D4CB1A5B2B389B78006EA984 /* DictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CB1A5A2B3891FB006EA984 /* DictionaryService.swift */; };
 		D4E33D8A27A838CF006DB1CF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4E33D8827A838CF006DB1CF /* Localizable.strings */; };
@@ -237,7 +237,7 @@
 		D4A13D5927A59D5C003BE359 /* InputMethodController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputMethodController.swift; sourceTree = "<group>"; };
 		D4A8E43527A9E982002F7A07 /* KeyHandlerPlainBopomofoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyHandlerPlainBopomofoTests.swift; sourceTree = "<group>"; };
 		D4C2A9852B4309D600113711 /* McBopomofoTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "McBopomofoTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		D4C2A9862B4309D700113711 /* UTF8HelperTest.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = UTF8HelperTest.mm; sourceTree = "<group>"; };
+		E10000012F4E000100000001 /* UTF8HelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UTF8HelperTests.swift; sourceTree = "<group>"; };
 		D4C9CAAF27AAC8EC0058DFEA /* NSStringUtils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = NSStringUtils; path = Packages/NSStringUtils; sourceTree = "<group>"; };
 		D4CB1A5A2B3891FB006EA984 /* DictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryService.swift; sourceTree = "<group>"; };
 		D4E33D8927A838CF006DB1CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -516,7 +516,7 @@
 				D449AD5E2B393C00000C5812 /* InputMacroTests.swift */,
 				D449AD602B39506D000C5812 /* ServiceProviderTests.swift */,
 				D4EE67572B39685F00F062DE /* DictionaryServiceTests.swift */,
-				D4C2A9862B4309D700113711 /* UTF8HelperTest.mm */,
+				E10000012F4E000100000001 /* UTF8HelperTests.swift */,
 				D4C2A9852B4309D600113711 /* McBopomofoTests-Bridging-Header.h */,
 			);
 			path = McBopomofoTests;
@@ -799,7 +799,7 @@
 				D4A8E43627A9E982002F7A07 /* KeyHandlerPlainBopomofoTests.swift in Sources */,
 				D436E23F2CD20BA700C6155D /* AssociatedPhrasesTests.swift in Sources */,
 				D449AD5F2B393C00000C5812 /* InputMacroTests.swift in Sources */,
-				D4C2A9872B4309D700113711 /* UTF8HelperTest.mm in Sources */,
+				E10000022F4E000100000001 /* UTF8HelperTests.swift in Sources */,
 				D47D73A427A5D43900255A50 /* KeyHandlerBopomofoTests.swift in Sources */,
 				D485D3B92796A8A000657FF3 /* PreferencesTests.swift in Sources */,
 				D449AD612B39506D000C5812 /* ServiceProviderTests.swift in Sources */,
@@ -1123,6 +1123,7 @@
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/McBopomofo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_ENABLE_CXX_INTEROP = YES;
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1176,6 +1177,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/McBopomofo-Bridging-Header.h";
+				SWIFT_ENABLE_CXX_INTEROP = YES;
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1375,6 +1377,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "McBopomofoTests/McBopomofoTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_ENABLE_CXX_INTEROP = YES;
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/McBopomofo.app/Contents/MacOS/McBopomofo";
 			};
@@ -1421,6 +1424,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "McBopomofoTests/McBopomofoTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_ENABLE_CXX_INTEROP = YES;
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/McBopomofo.app/Contents/MacOS/McBopomofo";
 			};

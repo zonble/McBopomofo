@@ -4,3 +4,4 @@
 //
 
 #import "ServiceProviderInputHelper.h"
+#include "UTF8Helper.h"

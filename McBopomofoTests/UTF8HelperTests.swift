@@ -21,37 +21,24 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
 
-#import "UTF8Helper.h"
-#import <XCTest/XCTest.h>
+import CxxStdlib
+import Testing
 
-@interface UTF8HelperTest : XCTestCase
+@testable import McBopomofo
 
-@end
-
-@implementation UTF8HelperTest
-
-- (void)testGetCodePoint1 {
-  std::string s = "一二三四";
-  std::string r = McBopomofo::GetCodePoint(s, 2);
-  XCTAssertTrue(r == "三");
+@Suite("Test UTF8 helper")
+struct UTF8HelperTests {
+    @Test(
+        "Test getting UTF-8 code points",
+        arguments: [
+            ("一二三四", 2, "三"),
+            ("ABCD", 2, "C"),
+            ("11🌳1", 2, "🌳"),
+            ("🌳🌳1🌳", 2, "1"),
+        ]
+    )
+    func testGetCodePoint(input: String, index: Int, expected: String) {
+        let result = McBopomofo.GetCodePoint(input, numericCast(index))
+        #expect(String(cxxString: result) == expected)
+    }
 }
-
-- (void)testGetCodePoint2 {
-  std::string s = "ABCD";
-  std::string r = McBopomofo::GetCodePoint(s, 2);
-  XCTAssertTrue(r == "C");
-}
-
-- (void)testGetCodePoint3 {
-  std::string s = "11🌳1";
-  std::string r = McBopomofo::GetCodePoint(s, 2);
-  XCTAssertTrue(r == "🌳");
-}
-
-- (void)testGetCodePoint4 {
-  std::string s = "🌳🌳1🌳";
-  std::string r = McBopomofo::GetCodePoint(s, 2);
-  XCTAssertTrue(r == "1");
-}
-
-@end
