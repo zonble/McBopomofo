@@ -7,10 +7,10 @@ on:
       - '**/*.mm'
       - '**/*.m'
       - '**/*.h'
+      - 'Source/Data/**'
       - '*.xcodeproj/**'
       - '*.xcworkspace/**'
       - '.github/workflows/continuous-integration-workflow-xcode-latest.yml'
-      - '!Source/Data/**'
   pull_request:
     paths:
       - '**/*.swift'
@@ -18,10 +18,10 @@ on:
       - '**/*.mm'
       - '**/*.m'
       - '**/*.h'
+      - 'Source/Data/**'
       - '*.xcodeproj/**'
       - '*.xcworkspace/**'
       - '.github/workflows/continuous-integration-workflow-xcode-latest.yml'
-      - '!Source/Data/**'
 
 jobs:
   build:
