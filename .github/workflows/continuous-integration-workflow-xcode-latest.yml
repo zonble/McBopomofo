@@ -7,10 +7,10 @@ on:
       - '**/*.mm'
       - '**/*.m'
       - '**/*.h'
-      - 'Source/Data/**'
       - '*.xcodeproj/**'
       - '*.xcworkspace/**'
       - '.github/workflows/continuous-integration-workflow-xcode-latest.yml'
+      - '!Source/Data/**'
   pull_request:
     paths:
       - '**/*.swift'
@@ -18,10 +18,10 @@ on:
       - '**/*.mm'
       - '**/*.m'
       - '**/*.h'
-      - 'Source/Data/**'
       - '*.xcodeproj/**'
       - '*.xcworkspace/**'
       - '.github/workflows/continuous-integration-workflow-xcode-latest.yml'
+      - '!Source/Data/**'
 
 jobs:
   build:
@@ -40,8 +40,6 @@ jobs:
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: "^26.1.1"
-      - name: Compile with Xcode first
-        run: xcodebuild -scheme McBopomofoInstaller -configuration Debug build
       - name: Build McBopomofoLMLibTest
         run: cmake -DENABLE_TEST=1 -S . -B build
         working-directory: Source/Engine
