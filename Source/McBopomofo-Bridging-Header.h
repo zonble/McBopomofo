@@ -4,6 +4,7 @@
 
 @import Foundation;
 
-#import "KeyHandler.h"
-#import "LanguageModelManager.h"
-#import "ServiceProviderInputHelper.h"
+#import "InputMode.h"
+#import "KeyHandlerCxxBridge.h"
+#import "LanguageModelManagerBridge.h"
+#import "ServiceProviderInputHelperBridge.h"
