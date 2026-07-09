@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -487,15 +487,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QYl-R0-PIq">
-                    <rect key="frame" x="91" y="199" width="87" height="16"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Ctrl + ` 按鍵：" id="ezl-df-SwH">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Toh-FQ-MTf">
+                <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Toh-FQ-MTf">
                     <rect key="frame" x="181" y="219" width="219" height="25"/>
                     <popUpButtonCell key="cell" type="push" title="關閉" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="4VD-Kh-SxN" id="Gcx-5r-kDK">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -518,16 +510,6 @@
                         <binding destination="32" name="selectedTag" keyPath="values.ControlEnterOutput" id="ldo-IT-lSL"/>
                     </connections>
                 </popUpButton>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bAc-Eh-8y4">
-                    <rect key="frame" x="184" y="199" width="185" height="16"/>
-                    <buttonCell key="cell" type="check" title="使用 Ctrl + ` 輸入 Big5 內碼" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="29h-4W-Qux">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="32" name="value" keyPath="values.Big5InputEnabled" id="aQr-XB-Bhd"/>
-                    </connections>
-                </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="92X-g9-wsi">
                     <rect key="frame" x="184" y="172" width="166" height="16"/>
                     <buttonCell key="cell" type="check" title="連續輸入標點切換候選字" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="uza-2x-Yem">
@@ -612,15 +594,12 @@
             <constraints>
                 <constraint firstItem="4tN-fq-xBR" firstAttribute="top" secondItem="mgj-mT-xZ6" secondAttribute="bottom" constant="55" id="0di-FM-1fJ"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cks-CZ-m7g" secondAttribute="trailing" constant="20" symbolic="YES" id="2vN-7H-kMX"/>
-                <constraint firstItem="bAc-Eh-8y4" firstAttribute="top" secondItem="Toh-FQ-MTf" secondAttribute="bottom" constant="4" id="3zh-fm-gkr"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="i1G-1y-ihS" secondAttribute="trailing" constant="20" symbolic="YES" id="55u-1x-Gza"/>
-                <constraint firstItem="QYl-R0-PIq" firstAttribute="leading" secondItem="L2Q-IX-SXc" secondAttribute="leading" constant="93" id="654-qr-PVz"/>
                 <constraint firstItem="NXk-oc-9oz" firstAttribute="leading" secondItem="i1G-1y-ihS" secondAttribute="leading" id="6dV-lR-fQW"/>
                 <constraint firstItem="BKA-Sp-uuc" firstAttribute="top" secondItem="L2Q-IX-SXc" secondAttribute="top" constant="217" id="8Kb-ij-Hfa"/>
                 <constraint firstItem="PuO-lM-5fF" firstAttribute="top" secondItem="L2Q-IX-SXc" secondAttribute="top" constant="20" symbolic="YES" id="8RB-nU-gsQ"/>
                 <constraint firstItem="2rb-rs-r3j" firstAttribute="top" secondItem="k5j-ZT-zUm" secondAttribute="bottom" constant="8" symbolic="YES" id="9lq-9e-Rby"/>
                 <constraint firstAttribute="trailing" secondItem="mgj-mT-xZ6" secondAttribute="trailing" constant="256" id="Ag7-HU-Mrb"/>
-                <constraint firstItem="mgj-mT-xZ6" firstAttribute="top" secondItem="QYl-R0-PIq" secondAttribute="bottom" constant="12" id="Aip-Mp-4m8"/>
                 <constraint firstItem="2rb-rs-r3j" firstAttribute="trailing" secondItem="i1G-1y-ihS" secondAttribute="trailing" id="C3Y-O3-iva"/>
                 <constraint firstItem="mgj-mT-xZ6" firstAttribute="top" secondItem="L2Q-IX-SXc" secondAttribute="top" constant="122" id="D7L-yX-vG6"/>
                 <constraint firstAttribute="trailing" secondItem="k5j-ZT-zUm" secondAttribute="trailing" constant="124" id="Dcf-I9-EK2"/>
@@ -631,17 +610,12 @@
                 <constraint firstItem="92X-g9-wsi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L2Q-IX-SXc" secondAttribute="leading" constant="20" symbolic="YES" id="LMl-dP-vPI"/>
                 <constraint firstItem="cks-CZ-m7g" firstAttribute="leading" secondItem="L2Q-IX-SXc" secondAttribute="leading" constant="62" id="LhQ-97-Vta"/>
                 <constraint firstAttribute="trailing" secondItem="NXk-oc-9oz" secondAttribute="trailing" constant="36" id="M8D-dd-FkT"/>
-                <constraint firstItem="bAc-Eh-8y4" firstAttribute="top" secondItem="L2Q-IX-SXc" secondAttribute="top" constant="94" id="MEG-f7-9CC"/>
-                <constraint firstItem="bAc-Eh-8y4" firstAttribute="leading" secondItem="L2Q-IX-SXc" secondAttribute="leading" constant="184" id="MaU-YK-uu3"/>
                 <constraint firstItem="YR5-r0-KVo" firstAttribute="leading" secondItem="L2Q-IX-SXc" secondAttribute="leading" constant="67" id="OIV-aX-QE9"/>
                 <constraint firstAttribute="trailing" secondItem="92X-g9-wsi" secondAttribute="trailing" constant="86" id="Qt1-p2-iZG"/>
-                <constraint firstItem="QYl-R0-PIq" firstAttribute="top" secondItem="L2Q-IX-SXc" secondAttribute="top" constant="94" id="Uxa-bX-L63"/>
                 <constraint firstItem="BKA-Sp-uuc" firstAttribute="leading" secondItem="L2Q-IX-SXc" secondAttribute="leading" constant="20" symbolic="YES" id="WKn-db-N8d"/>
                 <constraint firstItem="4tN-fq-xBR" firstAttribute="leading" secondItem="L2Q-IX-SXc" secondAttribute="leading" constant="50" id="WPP-Qw-Pbj"/>
                 <constraint firstItem="Toh-FQ-MTf" firstAttribute="leading" secondItem="k5j-ZT-zUm" secondAttribute="leading" constant="-3" id="a42-Ba-UI7"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="bAc-Eh-8y4" secondAttribute="trailing" constant="20" symbolic="YES" id="blE-3q-IHj"/>
                 <constraint firstItem="92X-g9-wsi" firstAttribute="top" secondItem="L2Q-IX-SXc" secondAttribute="top" constant="121" id="cWS-6m-SvY"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QYl-R0-PIq" secondAttribute="trailing" constant="20" symbolic="YES" id="clc-vZ-J9H"/>
                 <constraint firstItem="PuO-lM-5fF" firstAttribute="leading" secondItem="L2Q-IX-SXc" secondAttribute="leading" constant="184" id="d9p-FP-caF"/>
                 <constraint firstItem="k5j-ZT-zUm" firstAttribute="top" secondItem="L2Q-IX-SXc" secondAttribute="top" constant="229" id="dQb-5B-fcp"/>
                 <constraint firstItem="cks-CZ-m7g" firstAttribute="top" secondItem="L2Q-IX-SXc" secondAttribute="top" constant="20" symbolic="YES" id="ePS-tF-QAw"/>

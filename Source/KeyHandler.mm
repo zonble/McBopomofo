@@ -713,22 +713,6 @@ InputMode InputModePlainBopomofo = @"org.openvanilla.inputmethod.McBopomofo.Plai
         return [self _handleEnterWithState:state stateCallback:stateCallback errorCallback:errorCallback];
     }
 
-    // MARK: Enter Big5 code mode
-    if (input.isControlHold && (charCode == '`')) {
-        if (Preferences.big5InputEnabled) {
-            [self clear];
-            if ([state isKindOfClass:[InputStateInputting class]]) {
-                InputStateInputting *current = (InputStateInputting *)state;
-                NSString *composingBuffer = current.composingBuffer;
-                InputStateCommitting *committing = [[InputStateCommitting alloc] initWithPoppedText:composingBuffer];
-                stateCallback(committing);
-            }
-            InputStateBig5 *big5 = [[InputStateBig5 alloc] initWithCode:@""];
-            stateCallback(big5);
-            return YES;
-        }
-    }
-
     if (input.isControlHold && (input.keyCode == 42)) {
         [self clear];
         if ([state isKindOfClass:[InputStateInputting class]]) {

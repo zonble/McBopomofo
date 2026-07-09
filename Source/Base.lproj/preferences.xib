@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -469,16 +469,6 @@
                         <binding destination="32" name="selectedTag" keyPath="values.ChineseConversionStyle" id="cnK-mJ-pCg"/>
                     </connections>
                 </matrix>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NGh-Dn-Qpf">
-                    <rect key="frame" x="246" y="226" width="124" height="16"/>
-                    <buttonCell key="cell" type="check" title="Input Big 5 Code" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="9wE-js-xtM">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="32" name="value" keyPath="values.Big5InputEnabled" id="0sV-29-JVt"/>
-                    </connections>
-                </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rk4-b9-60D">
                     <rect key="frame" x="247" y="109" width="183" height="16"/>
                     <buttonCell key="cell" type="check" title="Show toggle in input menu" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="WJE-UF-tDv">
@@ -492,14 +482,6 @@
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tT1-Uf-Efn">
                     <rect key="frame" x="134" y="256" width="103" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Ctrl + Enter Key:" id="lrz-7F-6e5">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OxC-Bs-SbF">
-                    <rect key="frame" x="156" y="226" width="81" height="16"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Ctrl + `  Key:" id="F6Q-1k-YTn">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -597,8 +579,6 @@
                 <constraint firstAttribute="trailing" secondItem="wds-Zh-QHP" secondAttribute="trailing" constant="243" id="3KF-KU-Hzw"/>
                 <constraint firstItem="TEf-Fp-HrG" firstAttribute="baseline" secondItem="rk4-b9-60D" secondAttribute="baseline" id="49x-y4-SNG"/>
                 <constraint firstAttribute="trailing" secondItem="eG4-yu-RXo" secondAttribute="trailing" constant="242" id="5yX-ki-6EK"/>
-                <constraint firstItem="NGh-Dn-Qpf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S2Y-nP-nn8" secondAttribute="leading" constant="20" symbolic="YES" id="6N5-ha-XRR"/>
-                <constraint firstItem="OxC-Bs-SbF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S2Y-nP-nn8" secondAttribute="leading" constant="20" symbolic="YES" id="7dX-Vr-bJN"/>
                 <constraint firstItem="sHq-Tf-8nD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S2Y-nP-nn8" secondAttribute="leading" constant="20" symbolic="YES" id="Ads-P0-EhY"/>
                 <constraint firstItem="iAT-ur-QK5" firstAttribute="top" secondItem="r96-y2-KqX" secondAttribute="bottom" constant="8" symbolic="YES" id="Ae1-Z1-8hU"/>
                 <constraint firstAttribute="trailing" secondItem="tT1-Uf-Efn" secondAttribute="trailing" constant="243" id="Aff-Fm-kae"/>
@@ -612,8 +592,6 @@
                 <constraint firstItem="Xwt-fe-fQG" firstAttribute="leading" secondItem="S2Y-nP-nn8" secondAttribute="leading" constant="243" id="GmK-At-7hx"/>
                 <constraint firstItem="r96-y2-KqX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="I7Q-TH-9oP" secondAttribute="leading" id="GtQ-FP-mXm"/>
                 <constraint firstAttribute="trailing" secondItem="sHq-Tf-8nD" secondAttribute="trailing" constant="19" id="H0m-xb-2Af"/>
-                <constraint firstItem="OxC-Bs-SbF" firstAttribute="top" secondItem="S2Y-nP-nn8" secondAttribute="top" constant="98" id="IPM-yC-IYw"/>
-                <constraint firstAttribute="trailing" secondItem="OxC-Bs-SbF" secondAttribute="trailing" constant="243" id="KgI-QY-Ztv"/>
                 <constraint firstAttribute="trailing" secondItem="rk4-b9-60D" secondAttribute="trailing" constant="48" id="LVc-AI-Kxi"/>
                 <constraint firstItem="wds-Zh-QHP" firstAttribute="top" secondItem="S2Y-nP-nn8" secondAttribute="top" constant="20" symbolic="YES" id="NYC-rS-CHP"/>
                 <constraint firstAttribute="trailing" secondItem="I7Q-TH-9oP" secondAttribute="trailing" constant="19" id="Nyr-0J-Ohz"/>
@@ -624,9 +602,7 @@
                 <constraint firstItem="rk4-b9-60D" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="TEf-Fp-HrG" secondAttribute="trailing" constant="8" symbolic="YES" id="V5J-eF-JNP"/>
                 <constraint firstItem="ioI-j3-NSC" firstAttribute="top" secondItem="TEf-Fp-HrG" secondAttribute="bottom" constant="8" symbolic="YES" id="Xrs-3j-Rm4"/>
                 <constraint firstAttribute="trailing" secondItem="ioI-j3-NSC" secondAttribute="trailing" constant="20" symbolic="YES" id="Z0I-Yx-SYE"/>
-                <constraint firstItem="NGh-Dn-Qpf" firstAttribute="top" secondItem="S2Y-nP-nn8" secondAttribute="top" constant="98" id="bIe-Dq-SfT"/>
                 <constraint firstItem="eG4-yu-RXo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S2Y-nP-nn8" secondAttribute="leading" constant="20" symbolic="YES" id="bRf-vQ-r0y"/>
-                <constraint firstAttribute="trailing" secondItem="NGh-Dn-Qpf" secondAttribute="trailing" constant="108" id="bdE-y5-04g"/>
                 <constraint firstAttribute="trailing" secondItem="iAT-ur-QK5" secondAttribute="trailing" constant="16" id="cLg-Ee-vUv"/>
                 <constraint firstItem="iAT-ur-QK5" firstAttribute="leading" secondItem="sHq-Tf-8nD" secondAttribute="leading" id="cbd-j3-j6N"/>
                 <constraint firstItem="ioI-j3-NSC" firstAttribute="leading" secondItem="S2Y-nP-nn8" secondAttribute="leading" constant="20" symbolic="YES" id="fXs-yt-dDd"/>
