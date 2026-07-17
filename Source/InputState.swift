@@ -23,6 +23,7 @@
 
 import Cocoa
 import NSStringUtils
+import SystemCharacterInfo
 
 @objc protocol CandidateProvider: NSObjectProtocol {
     @objc var candidateCount: Int { get }
@@ -129,9 +130,9 @@ class InputState: NSObject {
                 }
             ),
             (
-                NSLocalizedString("Iroha Kana Input", comment: ""),
+                NSLocalizedString("Quick Text Transform", comment: ""),
                 {
-                    .IrohaKana(code: "")
+                    .IcuTransform(string: "", candidates: [])
                 }
             ),
         ]
@@ -238,6 +239,36 @@ class InputState: NSObject {
         @objc public var composingBuffer: String {
             return "[數字] \(number)"
         }
+    }
+
+    @objc(InputStateIcuTransform)
+    class IcuTransform: InputState, CandidateProvider {
+        var candidateCount: Int {
+            candidates.count
+        }
+        func candidate(at index: Int) -> String {
+            candidates[index]
+        }
+
+        func reading(at index: Int) -> String? {
+            candidates[index]
+        }
+
+        @objc private(set) var string: String
+        @objc private(set) var candidates: [String]
+
+        @objc init(string: String, candidates: [String]) {
+            self.string = string
+            self.candidates = candidates
+        }
+
+        override var description: String {
+            "<InputState.IcuTransform, string:\(string)>"
+        }
+
+        @objc public var composingBuffer: String {
+            return "[文字轉換] \(string)"
+        }
 
     }
 
@@ -255,55 +286,6 @@ class InputState: NSObject {
 
         @objc public var composingBuffer: String {
             return "[內碼] \(code)"
-        }
-    }
-
-    @objc(InputStateIrohaKana)
-    class IrohaKana: InputState {
-        @objc private(set) var code: String
-
-        @objc init(code: String) {
-            self.code = code
-        }
-
-        override var description: String {
-            "<InputState.IrohaKana, code:\(code)>"
-        }
-
-        @objc public var composingBuffer: String {
-            return "[伊呂波] \(code)"
-        }
-    }
-
-    @objc(InputStateIrohaKanaCandidates)
-    class IrohaKanaCandidates: InputState, CandidateProvider {
-        @objc private(set) var code: String
-
-        @objc private(set) var candidates: [String] = []
-
-        var candidateCount: Int {
-            candidates.count
-        }
-
-        func candidate(at index: Int) -> String {
-            candidates[index]
-        }
-
-        func reading(at index: Int) -> String? {
-            candidates[index]
-        }
-
-        @objc init(code: String, candidates: [String]) {
-            self.code = code
-            self.candidates = candidates
-        }
-
-        override var description: String {
-            "<InputState.IrohaKanaCandidates, code:\(code)>"
-        }
-
-        @objc public var composingBuffer: String {
-            return "[伊呂波] \(code)"
         }
     }
 
@@ -642,14 +624,15 @@ class InputState: NSObject {
 
         @objc
         func toggle(autoTriggered: Bool) -> AssociatedPhrases {
-            AssociatedPhrases(previousState: previousState,
-                              prefixCursorIndex: prefixCursorIndex,
-                              prefixReading: prefixReading,
-                              prefixValue: prefixValue,
-                              selectedIndex: selectedIndex,
-                              candidates: candidates,
-                              useVerticalMode: useVerticalMode,
-                              autoTriggered: autoTriggered)
+            AssociatedPhrases(
+                previousState: previousState,
+                prefixCursorIndex: prefixCursorIndex,
+                prefixReading: prefixReading,
+                prefixValue: prefixValue,
+                selectedIndex: selectedIndex,
+                candidates: candidates,
+                useVerticalMode: useVerticalMode,
+                autoTriggered: autoTriggered)
         }
 
     }
@@ -771,7 +754,7 @@ class InputState: NSObject {
                 }.joined(separator: " ")
             }
 
-            self.menuTitleValueMapping = [
+            var menuTitleValueMapping = [
                 buildItem(
                     prefix: "UTF-8 HEX", selectedString: selectedPhrase,
                     builder: { string in
@@ -807,6 +790,35 @@ class InputState: NSObject {
                         getCharCode(string: string, encoding: 0x0A01)
                     }),
             ]
+            if selectedString.count == 1,
+                let dictionary = UnihanDictionary.shared,
+                let result = try? dictionary.read(string: selectedString)
+            {
+                let mapping: [(String, String?)] = [
+                    (NSLocalizedString("Unicode Name", comment: ""), result.name),
+                    (NSLocalizedString("Phoenetic", comment: ""), result.phonetic),
+                    (NSLocalizedString("Pinyin", comment: ""), result.pinyinRoc),
+                    (NSLocalizedString("Canjie", comment: ""), result.canjie),
+                    (NSLocalizedString("Canjie Keys", comment: ""), result.canjieKeys),
+                    (NSLocalizedString("Japanese", comment: ""), result.japanese),
+                    (NSLocalizedString("Japanese Kun", comment: ""), result.japaneseKun),
+                    (NSLocalizedString("Japanese On", comment: ""), result.japaneseOn),
+                    (NSLocalizedString("Korean", comment: ""), result.korean),
+                ]
+                for entry in mapping {
+                    if let string = entry.1, !string.isEmpty {
+                        let truncated =
+                            string.count > 16
+                            ? String(
+                                string[
+                                    string
+                                        .startIndex..<string.index(string.startIndex, offsetBy: 16)]
+                            ) + "…" : string
+                        menuTitleValueMapping.append(("\(entry.0): \(truncated)", string))
+                    }
+                }
+            }
+            self.menuTitleValueMapping = menuTitleValueMapping
             self.menu = menuTitleValueMapping.map { $0.0 }
             super.init(
                 composingBuffer: previousState.composingBuffer,

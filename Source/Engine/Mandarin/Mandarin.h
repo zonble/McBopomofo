@@ -302,6 +302,15 @@ class BopomofoKeyboardLayout {
           syllable += head;
         } else if (syllable.maskType() < follow.maskType()) {
           syllable += follow;
+        } else if ((syllable.maskType() == follow.maskType()) &&
+                   syllable.maskType() == BPMF::VowelMask) {
+          // if the existing syllable contains only a vowel, and the
+          // current character has 2+ possibilities, and the second (follow)
+          // choice is also a vowel, we run into the case where the user
+          // may have typed the consonant-vowel sequence in the wrong
+          // order, and so the first (head) choice, which is always a
+          // consonant, must be taken.
+          syllable += head;
         } else {
           syllable += ending;
         }
@@ -372,9 +381,9 @@ class BopomofoReadingBuffer {
 
   void setKeyboardLayout(const BopomofoKeyboardLayout* layout) {
     layout_ = layout;
+    pinyin_mode_ = layout == BopomofoKeyboardLayout::HanyuPinyinLayout();
 
-    if (layout == BopomofoKeyboardLayout::HanyuPinyinLayout()) {
-      pinyin_mode_ = true;
+    if (pinyin_mode_) {
       pinyin_sequence_ = "";
     }
   }
