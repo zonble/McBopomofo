@@ -3,4 +3,5 @@
 //  expose to Swift.
 //
 
-#import "ServiceProviderInputHelper.h"
+#import "ServiceProviderInputHelperBridge.h"
+#include "UTF8Helper.h"
